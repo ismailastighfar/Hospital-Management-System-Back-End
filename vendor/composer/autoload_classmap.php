@@ -12,7 +12,10 @@ return array(
     'App\\Http\\Controllers\\DepartmentController' => $baseDir . '/app/Http/Controllers/DepartmentController.php',
     'App\\Http\\Controllers\\DoctorController' => $baseDir . '/app/Http/Controllers/DoctorController.php',
     'App\\Http\\Controllers\\PatientController' => $baseDir . '/app/Http/Controllers/PatientController.php',
+<<<<<<< HEAD
     'App\\Http\\Controllers\\QuestionController' => $baseDir . '/app/Http/Controllers/QuestionController.php',
+=======
+>>>>>>> 08f6b84397da84aa69a123bf9e68c976053e0551
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
@@ -26,6 +29,7 @@ return array(
     'App\\Models\\Answer' => $baseDir . '/app/Models/Answer.php',
     'App\\Models\\Department' => $baseDir . '/app/Models/Department.php',
     'App\\Models\\Doctor' => $baseDir . '/app/Models/Doctor.php',
+    'App\\Models\\Medicine' => $baseDir . '/app/Models/Medicine.php',
     'App\\Models\\Patient' => $baseDir . '/app/Models/Patient.php',
     'App\\Models\\Question' => $baseDir . '/app/Models/Question.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
@@ -142,6 +146,7 @@ return array(
     'Database\\Factories\\AnswerFactory' => $baseDir . '/database/factories/AnswerFactory.php',
     'Database\\Factories\\DepartmentFactory' => $baseDir . '/database/factories/DepartmentFactory.php',
     'Database\\Factories\\DoctorFactory' => $baseDir . '/database/factories/DoctorFactory.php',
+    'Database\\Factories\\MedicineFactory' => $baseDir . '/database/factories/MedicineFactory.php',
     'Database\\Factories\\PatientFactory' => $baseDir . '/database/factories/PatientFactory.php',
     'Database\\Factories\\QuestionFactory' => $baseDir . '/database/factories/QuestionFactory.php',
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',

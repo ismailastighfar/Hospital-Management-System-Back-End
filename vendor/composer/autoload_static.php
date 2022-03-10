@@ -510,7 +510,10 @@ class ComposerStaticInita13806b2316672e4a4da830a7e0a5fc5
         'App\\Http\\Controllers\\DepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartmentController.php',
         'App\\Http\\Controllers\\DoctorController' => __DIR__ . '/../..' . '/app/Http/Controllers/DoctorController.php',
         'App\\Http\\Controllers\\PatientController' => __DIR__ . '/../..' . '/app/Http/Controllers/PatientController.php',
+<<<<<<< HEAD
         'App\\Http\\Controllers\\QuestionController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuestionController.php',
+=======
+>>>>>>> 08f6b84397da84aa69a123bf9e68c976053e0551
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -524,6 +527,7 @@ class ComposerStaticInita13806b2316672e4a4da830a7e0a5fc5
         'App\\Models\\Answer' => __DIR__ . '/../..' . '/app/Models/Answer.php',
         'App\\Models\\Department' => __DIR__ . '/../..' . '/app/Models/Department.php',
         'App\\Models\\Doctor' => __DIR__ . '/../..' . '/app/Models/Doctor.php',
+        'App\\Models\\Medicine' => __DIR__ . '/../..' . '/app/Models/Medicine.php',
         'App\\Models\\Patient' => __DIR__ . '/../..' . '/app/Models/Patient.php',
         'App\\Models\\Question' => __DIR__ . '/../..' . '/app/Models/Question.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -640,6 +644,7 @@ class ComposerStaticInita13806b2316672e4a4da830a7e0a5fc5
         'Database\\Factories\\AnswerFactory' => __DIR__ . '/../..' . '/database/factories/AnswerFactory.php',
         'Database\\Factories\\DepartmentFactory' => __DIR__ . '/../..' . '/database/factories/DepartmentFactory.php',
         'Database\\Factories\\DoctorFactory' => __DIR__ . '/../..' . '/database/factories/DoctorFactory.php',
+        'Database\\Factories\\MedicineFactory' => __DIR__ . '/../..' . '/database/factories/MedicineFactory.php',
         'Database\\Factories\\PatientFactory' => __DIR__ . '/../..' . '/database/factories/PatientFactory.php',
         'Database\\Factories\\QuestionFactory' => __DIR__ . '/../..' . '/database/factories/QuestionFactory.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
