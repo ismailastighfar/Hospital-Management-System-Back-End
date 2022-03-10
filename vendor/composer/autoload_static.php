@@ -510,10 +510,7 @@ class ComposerStaticInita13806b2316672e4a4da830a7e0a5fc5
         'App\\Http\\Controllers\\DepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/DepartmentController.php',
         'App\\Http\\Controllers\\DoctorController' => __DIR__ . '/../..' . '/app/Http/Controllers/DoctorController.php',
         'App\\Http\\Controllers\\PatientController' => __DIR__ . '/../..' . '/app/Http/Controllers/PatientController.php',
-<<<<<<< HEAD
         'App\\Http\\Controllers\\QuestionController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuestionController.php',
-=======
->>>>>>> 08f6b84397da84aa69a123bf9e68c976053e0551
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
