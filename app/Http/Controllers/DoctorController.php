@@ -19,6 +19,15 @@ class DoctorController extends Controller
        
     }
 
+    public function search(){
+
+        return User::where('fullname','like', '%'.request('name').'%')
+                    ->where('email','like', '%'.request('email').'%')
+                    ->where('phoneNumber','like', '%'.request('phone').'%')
+                    ->where('role','=','2')
+                    ->get();
+    }
+
      public function store(Request $request)
     {
         $request->validate([

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullname');
             $table->string('username');
-            $table->integer('role')->default('2');
+            $table->integer('role')->default('1');
             $table->string('phoneNumber')->unique()->nullable();
             $table->string('gender')->nullable();
             $table->date('dateOfBirth')->nullable();

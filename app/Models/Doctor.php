@@ -26,4 +26,7 @@ class Doctor extends Model
         return $this->belongsTo(Department::class , 'departments_id');
     }
 
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }
