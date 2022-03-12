@@ -16,7 +16,9 @@ class AnswerController extends Controller
     {
         return Answer::all()->load('auther');
     }
-
+    public function questionAnswers($id){
+        return Answer::where('question_id', $id)->load('auther');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -25,6 +27,7 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'doctor_id' => 'required|exists:doctors,id',
             'question_id' => 'required|exists:questions,id',
@@ -54,15 +57,17 @@ class AnswerController extends Controller
      */
     public function update(Request $request, Answer $answer)
     {
-        $request->validate([         
-            'content' => 'required|string'
-        ]);
+        if( auth()->user()->id == $answer->doctor_id ){
+            $request->validate([         
+                'content' => 'required|string'
+            ]);
 
-        $answer->update([
-            'content' => $request->content,
-        ]);
+            $answer->update([
+                'content' => $request->content,
+            ]);
 
-        return response('answer updated successfully');
+            return response('answer updated successfully');
+        }else return response('you cannot do this operation', 405);
     }
 
     /**
@@ -72,7 +77,9 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Answer $answer)
-    {
+    {   
+        if( auth()->user()->id == $answer->doctor_id ){
         $answer->destroy($answer->id);
+        }else return response('you cannot do this operation', 405);
     }
 }

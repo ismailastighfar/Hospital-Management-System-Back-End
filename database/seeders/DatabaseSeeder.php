@@ -14,8 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Doctor::factory(5 , ['departments_id' => '1'])->create();
-        \App\Models\Patient::factory(20)->create();
-
+        \App\Models\User::factory(1,['role' => '0'])->create();
+        
     }
 }

@@ -14,7 +14,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return Department::all();
+        return Department::all()->load('doctors');
     }
 
     /**
@@ -22,10 +22,7 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        
-    }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -58,9 +55,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        return Department::find($id);
+        return $department->load('doctors');
     }
 
     /**
@@ -88,9 +85,9 @@ class DepartmentController extends Controller
             'dept_details' => 'required'
         ]);
 
-       $dept = Department::find($id);
+        $dept = Department::find($id);
 
-       if ($dept) {
+        if ($dept) {
 
            $dept->dept_name = $request->dept_name;
            $dept->dept_details = $request->dept_details;   

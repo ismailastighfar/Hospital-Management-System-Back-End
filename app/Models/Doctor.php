@@ -23,7 +23,7 @@ class Doctor extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class , 'departments_id');
+        return $this->belongsTo(Department::class);
     }
 
     public function answers(){

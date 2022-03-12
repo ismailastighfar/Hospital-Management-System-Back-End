@@ -17,7 +17,7 @@ class PatientFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => User::factory(['role' => '1']),
             'allergies' => $this->faker->text(150),
             'sickness' => $this->faker->text(150)
         ];

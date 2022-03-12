@@ -14,9 +14,13 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::all()->load('auther');
+        return Question::all()->load('auther','answers');
     }
 
+    public function patientQuestion($id){
+        return Question::where('patient_id',$id)->load('auther', 'answers');
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -55,12 +59,16 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        $request->validate([
-            'content' => 'required|string',
-        ]);
-        
-        $question->update($request->all());
-        return response('Question updated successfull');
+        if(auth()->user()->id == $question->patient_id ){
+            $request->validate([
+                'content' => 'required|string',
+            ]);
+            
+            $question->update($request->all());
+            return response('Question updated successfull');
+        }else{
+            response('you cannot do this operation', 405);
+        }   
     }
 
     /**
@@ -71,7 +79,11 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->destroy($question->id);
-        return response('the question deleted successfully');
+        if(auth()->user()->id == $question->patient_id ){
+            $question->destroy($question->id);
+            return response('the question deleted successfully');
+        }else{
+            response('you cannot do this operation', 405);
+        }  
     }
 }

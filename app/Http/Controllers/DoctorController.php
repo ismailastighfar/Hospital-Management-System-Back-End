@@ -10,13 +10,13 @@ class DoctorController extends Controller
 {
     public function index(){
        
-        return Doctor::all();
+        return Doctor::all()->load('user');
     }
 
-    public function show($id){
+    public function show(Doctor $doctor){
         
-        return Doctor::find($id);
-       
+        return $doctor->load('user');
+
     }
 
     public function search(){
@@ -25,7 +25,7 @@ class DoctorController extends Controller
                     ->where('email','like', '%'.request('email').'%')
                     ->where('phoneNumber','like', '%'.request('phone').'%')
                     ->where('role','=','2')
-                    ->get();
+                    ->with('doctor')->get();
     }
 
      public function store(Request $request)
@@ -56,18 +56,4 @@ class DoctorController extends Controller
         }
         return response(['error' => 'non doctor founded'] , 404);
     }
-
-    
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     User::destroy($id);
-    //     return response(['message' => 'the doctor deleted successfully'] );
-    // }
-
 }

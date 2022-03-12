@@ -21,12 +21,10 @@ class PatientController extends Controller
     public function search()
     {
 
-    
         return User::where('role','=','1')
                                 ->where('fullname','like', '%'.request('name').'%')
                                 ->where('email','like', '%'.request('email').'%')
                                 ->get();
-        
     }
 
     // search the patient by name
@@ -45,56 +43,39 @@ class PatientController extends Controller
             'allergies' => 'string',
             'sickness' => 'string'
         ]);
-        
-        Patient::create($request->all());
 
-        return response('Patient Created successfully');
-        
+        if( auth()->user()->id == $request->user_id ){
+
+             Patient::create($request->all());
+             return response('Patient Created successfully');
+             
+        }
+
+        return response(['message' => 'you are not authorized to do this operation'],405);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    
+    public function show(Patient $patient)
     {
-        return Patient::find($id);
+        return $patient->load('user');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'allergies' => 'string',
-            'sickness' => 'string'
-        ]);
+        if(Patient::find($id)){
+            if( auth()->user()->id == $id ){
+                $request->validate([
+                    'allergies' => 'string',
+                    'sickness' => 'string'
+                ]);
+                $patient = Patient::find($id);
 
-        $patient = Patient::find($id);
-
-        if($patient){
-            $patient->update($request->all());
-            return response('the Patient information updated successfully');
+                $patient->update($request->all());
+                return response('the Patient information updated successfully');
+            }
+            return response(['message' => 'you are not authorized to do this operation'],405);
         }
         return response("this Patient does't exist", 404);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Patient::destroy($id);
-        return response('user deleted successfully');
     }
 }

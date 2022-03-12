@@ -8,9 +8,9 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthController;
-use App\Models\Department;
+use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isPatient;
 use GuzzleHttp\Middleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,48 +24,80 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('doctors' , DoctorController::class);
+// Private routers 
 
-Route::get('doctor/search' , [DoctorController::class, 'search' ]);
+Route::middleware(['auth:sanctum'])->group( function() {
 
+    Route::get('/users', [UserController::class, 'index'])->middleware('isAdmin');
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('isAdmin');
+
+    Route::put('/doctors/{id}', [DoctorController::class, 'update'])->middleware('isAdmin');
+    Route::post('/doctors', [DoctorController::class, 'store'])->middleware('isAdmin');
+
+    Route::get('/patients', [PatientController::class, 'index']);
+    Route::get('/patients/{patient}', [PatientController::class, 'show']);
+    Route::post('/patients', [PatientController::class, 'store'])->middleware('isPatient');
+    Route::put('/patients', [PatientController::class, 'update'])->middleware('isPatient');
+
+    Route::post('/departments', [DepartmentController::class, 'store'])->middleware('isAdmin');
+    Route::put('/departments', [DepartmentController::class, 'update'])->middleware('isAdmin');
+    Route::delete('/departments', [DepartmentController::class, 'delete'])->middleware('isAdmin');
+
+    Route::post('/questions', [QuestionController::class, 'store'])->middleware('isPatient');
+    Route::put('/questions', [QuestionController::class, 'update'])->middleware('isPatient');
+    Route::delete('/questions', [QuestionController::class, 'delete']);
+
+    Route::post('/answers', [AnswerController::class, 'store'])->middleware('isDoctor');
+    Route::put('/answers', [AnswerController::class, 'update'])->middleware('isDoctor');
+    Route::delete('/answers', [AnswerController::class, 'delete'])->middleware('isDoctor');
+
+    Route::post('/medicines', [MedicineController::class, 'store'])->middleware('isAdmin');
+    Route::put('/medicines', [MedicineController::class, 'update'])->middleware('isAdmin');
+    Route::delete('/medicines', [MedicineController::class, 'delete'])->middleware('isAdmin');
+
+});
+
+// User Route 
+
+Route::post('/users', [UserController::class, 'store']);
+
+
+// Doctor Route
+
+Route::get('/doctors', [DoctorController::class, 'index']);
+Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
+Route::get('/doctor/search' , [DoctorController::class, 'search']);
+
+// Patient Route
+
+Route::get('/patient/search' , [PatientController::class, 'search' ]);
+
+
+// Departement Routes
+
+Route::get('/departments', [DepartmentController::class, 'index']);
+Route::get('/departments/{department}', [DepartmentController::class, 'show']);
+
+// Quetions Routes
+
+Route::get('/questions', [QuestionController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/questions/{question}', [QuestionController::class, 'show'])->middleware('auth:sanctum');
+
+// Answers Routes
+
+Route::get('/answers', [AnswerController::class, 'index']);
+Route::get('/answers/{answer}', [AnswerController::class, 'show']);
+
+
+// Medicines Routes 
+
+Route::get('/medicines', [MedicineController::class, 'index']);
+Route::get('/medicines/{medicine}', [MedicineController::class, 'show']);
 Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 
-Route::resource('users' , UserController::class);
-
-
-Route::get('patient/search' , [PatientController::class, 'search' ]);
-
-
-
-Route::resource('questions', QuestionController::class);
-
-
-Route::resource('answers', AnswerController::class);
-
-
+// Auth Routes 
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/logout', [AuthController::class, 'logout']);
-
-Route::group(['middleware' => ['auth:sanctum', 'isPatient']],   function () {
-
-    Route::resource('patients' , PatientController::class);
-
-    Route::get('/logout', [AuthController::class, 'logout'])->withoutMiddleware('isPatient');
-
-});
-Route::group(['middleware' => ['auth:sanctum', 'isDoctor']],   function () {
-
-    Route::resource('doctors' , DoctorController::class);
-
-    Route::get('/logout', [AuthController::class, 'logout'])->withoutMiddleware('isDoctor');
-
-});
-Route::group(['middleware' => ['auth:sanctum', 'isAdmin']],   function () {
-
-    Route::resource('departments' , DepartmentController::class);
-    
-    Route::get('/logout', [AuthController::class, 'logout'])->withoutMiddleware('isAdmin');
-
-});
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

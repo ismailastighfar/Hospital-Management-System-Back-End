@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::all()->load('patient','doctor');
     }
 
     /**
@@ -46,20 +46,10 @@ class UserController extends Controller
             'address' => $request->address,
             'dateOfBirth' => $request->dateOfBirth,
         ]);
-        return response([ 'message ' => 'success']);
+        return response(['message ' => 'success']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -69,24 +59,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( auth()->user()->id === $id || auth()->user()->role == 0){
+            $request->validate([
+                'fullname' => 'required|max:255|string',
+                'username' =>  'required|max:255|string',
+                'email' =>  'required|max:255|email',
+                'gender' => 'required|string',
+                'phoneNumber' => 'required|numeric',
+                'address' => 'required|string',
+                'dateOfBirth' => 'required|date',
+            ]);
 
-        $request->validate([
-            'fullname' => 'required|max:255|string',
-            'username' =>  'required|max:255|string',
-            'email' =>  'required|max:255|email',
-            'gender' => 'required|string',
-            'phoneNumber' => 'required|numeric',
-            'address' => 'required|string',
-            'dateOfBirth' => 'required|date',
-        ]);
+            $user = User::find($id);
 
-        $user = User::find($id);
-
-        if($user) {
-            $user->update($request->all());
-            return response(['message' => 'the user updated successfully']);
+            if($user) {
+                $user->update($request->all());
+                return response(['message' => 'the user updated successfully'], 200);
+            }
+            return response(['error' => 'non user founded'] , 404);
         }
-        return response(['error' => 'non user founded'] , 404);
+        return response(['message' => 'you are not authorized to do this oparation'], 405);
     }
 
     /**
@@ -97,8 +89,21 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return response(['message' => 'the user deleted successfully'] );
+        
+            $user = User::find($id);
+            if( $user->role == 1 ){
+                $user->patient->destroy($user->doctor->id);
+                $user->destroy($user->id);
+            }
+            else if( $user->role == 2 ){
+                $user->doctor->destroy($user->doctor->id);
+                $user->destroy($user->id);
+            }
+            else {
+                return response(['message' => 'you cannot delete this user']);
+            }
+            return response(['message' => 'the user deleted successfully'] );
+        
     }
 }
  
