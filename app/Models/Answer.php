@@ -15,7 +15,7 @@ class Answer extends Model
         'content',
     ];
     public function question(){
-        return $this->belongsTo(Question::class ,);
+        return $this->belongsTo(Question::class , 'questions_id');
     }
     public function auther(){
         return $this->belongsTo(Doctor::class, 'doctors_id');

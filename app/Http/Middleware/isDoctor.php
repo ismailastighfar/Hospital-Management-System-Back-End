@@ -16,7 +16,7 @@ class isDoctor
      */
     public function handle(Request $request, Closure $next)
     {
-        if( auth()->user()->role === 2 )  return $next($request);
+        if( auth()->user()->role == 2 )  return $next($request);
         else return response(['message' => 'you must be a doctor']);
     }
 }

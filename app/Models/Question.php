@@ -14,9 +14,9 @@ class Question extends Model
     ];
 
     public function auther(){
-        return $this->belongsTo(Patient::class, 'patient_id');
+        return $this->belongsTo(Patient::class, 'patients_id');
     }
     public function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class, 'answers_id');
     }
 }

@@ -16,7 +16,7 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if( auth()->user()->role === 0 )  return $next($request);
+        if( auth()->user()->role == 0 )  return $next($request);
         else return response(['message' => 'you must be a admin']);    
     }
 }

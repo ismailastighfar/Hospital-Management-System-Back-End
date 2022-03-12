@@ -16,11 +16,11 @@ class Patient extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function question(){
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'questions_id');
     }
 
 }
