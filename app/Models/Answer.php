@@ -10,14 +10,14 @@ class Answer extends Model
     use HasFactory;
     
     protected $fillable = [
-        'doctor_id',
+        'doctors_id',
         'question_id',
         'content',
     ];
     public function question(){
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Question::class ,);
     }
     public function auther(){
-        return $this->belongsTo(Doctor::class, 'doctor_id');
+        return $this->belongsTo(Doctor::class, 'doctors_id');
     }
 }

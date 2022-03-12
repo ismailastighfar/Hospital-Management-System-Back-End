@@ -39,12 +39,12 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'users_id' => 'required|exists:users,id',
             'allergies' => 'string',
             'sickness' => 'string'
         ]);
 
-        if( auth()->user()->id == $request->user_id ){
+        if( auth()->user()->id == $request->users_id ){
 
              Patient::create($request->all());
              return response('Patient Created successfully');

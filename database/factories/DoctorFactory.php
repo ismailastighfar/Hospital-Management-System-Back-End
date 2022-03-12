@@ -22,7 +22,7 @@ class DoctorFactory extends Factory
     {
         return [
             'speciality' => Str::random(7),
-            'user_id' => User::factory(['role' => '2']),
+            'users_id' => User::factory(['role' => '2']),
             'departments_id' =>  Department::factory(),
 
         ];

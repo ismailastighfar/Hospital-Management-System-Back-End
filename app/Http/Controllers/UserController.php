@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all()->load('patient','doctor');
+        return User::all();
     }
 
     /**
@@ -90,19 +90,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         
-            $user = User::find($id);
-            if( $user->role == 1 ){
-                $user->patient->destroy($user->doctor->id);
-                $user->destroy($user->id);
-            }
-            else if( $user->role == 2 ){
-                $user->doctor->destroy($user->doctor->id);
-                $user->destroy($user->id);
-            }
-            else {
-                return response(['message' => 'you cannot delete this user']);
-            }
-            return response(['message' => 'the user deleted successfully'] );
+        User::destory($id);  
+        return response(['message' => 'the user deleted successfully'] );
         
     }
 }

@@ -31,7 +31,7 @@ class DoctorController extends Controller
      public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
+            'users_id' => 'required',
             'departments_id' => 'required',
             'speciality' => 'required|string' 
         ]);
