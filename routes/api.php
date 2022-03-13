@@ -7,9 +7,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isPatient;
+use App\Models\Appointment;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 // Private routers 
 
 Route::middleware(['auth:sanctum'])->group( function() {
+
+    Route::resource('appointments' , AppointmentController::class);
+
+    Route::get('/appointments/accepte/{appointment}' , [AppointmentController::class , 'updateStatusToAccepted'] );
+    Route::get('/appointments/complete/{appointment}' , [AppointmentController::class , 'updateStatusToCompleted'] );
+
 
     Route::get('/users', [UserController::class, 'index'])->middleware('isAdmin');
     Route::put('/users/{id}', [UserController::class, 'update']);
