@@ -18,7 +18,7 @@ class Doctor extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(User::class , 'users_id');
     }
 
     public function department()
@@ -28,5 +28,10 @@ class Doctor extends Model
 
     public function answers(){
         return $this->hasMany(Answer::class , 'answers_id');
+    }
+
+    public function appointments (){
+
+        return $this->hasMany(Appointment::class , 'appointments_id');
     }
 }
