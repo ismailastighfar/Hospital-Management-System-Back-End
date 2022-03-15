@@ -9,6 +9,8 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PrescriptionController;
+
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isPatient;
 use App\Models\Appointment;
@@ -31,6 +33,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group( function() {
 
     Route::resource('appointments' , AppointmentController::class);
+    Route::resource('prescriptions' , PrescriptionController::class);
+
 
     Route::get('/appointments/accepte/{appointment}' , [AppointmentController::class , 'updateStatusToAccepted'] );
     Route::get('/appointments/complete/{appointment}' , [AppointmentController::class , 'updateStatusToCompleted'] );
@@ -109,3 +113,5 @@ Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+

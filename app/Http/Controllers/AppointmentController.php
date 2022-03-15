@@ -69,7 +69,7 @@ class AppointmentController extends Controller
             else{
                 Appointment::create([
                     'doctors_id' => $request->doctors_id,
-                    'patients_id' => auth()->user()->id,
+                    'patients_id' => auth()->user()->load('patient')->patient->id,
                     'details' => $request->details,
                     'date' => $request->date,
                     'time' => $request->time,

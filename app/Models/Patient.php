@@ -28,4 +28,6 @@ class Patient extends Model
         return $this->hasMany(Appointment::class , 'appointments_id');
     }
 
+
+
 }

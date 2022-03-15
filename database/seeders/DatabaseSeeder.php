@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(1,['role' => '0'])->create();
         \App\Models\Doctor::factory(5)->create();
-        \App\Models\Patient::factory(20)->create();
+        \App\Models\Patient::factory(5)->create();
     }
 }
