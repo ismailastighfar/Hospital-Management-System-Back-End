@@ -19,6 +19,9 @@ class AnswerController extends Controller
     public function questionAnswers($id){
         return Answer::where('question_id', $id)->load('auther');
     }
+    public function doctorAnswers($id){
+        return Answer::where('doctors_id', $id)->load('auther');
+    }
     /**
      * Store a newly created resource in storage.
      *

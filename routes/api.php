@@ -47,7 +47,7 @@ Route::middleware(['auth:sanctum'])->group( function() {
     Route::put('/doctors/{id}', [DoctorController::class, 'update'])->middleware('isAdmin');
     Route::post('/doctors', [DoctorController::class, 'store'])->middleware('isAdmin');
 
-    Route::get('/patients', [PatientController::class, 'index']);
+    Route::get('/patients', [PatientController::class, 'index'])->middleware('isAdmin');
     Route::get('/patients/{patient}', [PatientController::class, 'show']);
     Route::post('/patients', [PatientController::class, 'store'])->middleware('isPatient');
     Route::put('/patients', [PatientController::class, 'update'])->middleware('isPatient');
@@ -100,7 +100,6 @@ Route::get('/questions/{question}', [QuestionController::class, 'show'])->middle
 
 Route::get('/answers', [AnswerController::class, 'index']);
 Route::get('/answers/{answer}', [AnswerController::class, 'show']);
-
 
 // Medicines Routes 
 
