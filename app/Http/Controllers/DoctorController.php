@@ -10,7 +10,7 @@ class DoctorController extends Controller
 {
     public function index(){
        
-        return Doctor::all()->load('user');
+        return Doctor::all();
     }
 
     public function show(Doctor $doctor){
@@ -21,20 +21,29 @@ class DoctorController extends Controller
 
     public function search(){
 
-        return User::where('fullname','like', '%'.request('name').'%')
-                    ->where('email','like', '%'.request('email').'%')
-                    ->where('phoneNumber','like', '%'.request('phone').'%')
-                    ->where('role','=','2')
-                    ->with('doctor')->get();
+        return Doctor::where('fname','like', '%'.request('name').'%')
+                     ->where('lname','like', '%'.request('name').'%')
+                    ->where('speciality','like', '%'.request('speciality').'%')
+                    ->get();
     }
 
      public function store(Request $request)
     {
         $request->validate([
-            'users_id' => 'required',
-            'departments_id' => 'required',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'age' => 'required|integer',
+            'phone' => 'required',
+            'proEmail' => 'required|email',
+            'description' => 'required|min:10|max:255',
+            'picture' => 'required|image|mimes:jpg,png,jpeg',
+            'department_id' => 'required',
+            'user_id' => 'required',
             'speciality' => 'required|string' 
         ]);
+
+        $imageName = $request->fname . $request->lname . '.' . $request->picture->extension();
+        $request->picture->move(public_path('doc_img'), $imageName);
 
         Doctor::create($request->all());
 
@@ -45,7 +54,8 @@ class DoctorController extends Controller
     {
 
         $request->validate([
-            'speciality' => 'required|string' 
+            'phone' => 'required',
+            'proEmail' => 'required|email',
         ]);
 
         $doctor = Doctor::find($id);

@@ -28,15 +28,7 @@ class AnswerController extends Controller
         return response(['date' => $response ]);
     }
 
-    /*
-        Get All Answers for a single Quetion
-    */
-    public function questionAnswers($id){
-
-        return Answer::where('questions_id', $id)->with('auther')->get();
-
-    }
-
+    
     /*
         Get All Answers given by a single doctor
     */
@@ -69,8 +61,13 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Answer $answer)
-    {
-        return $answer;
+    { 
+        $response = [
+            'doctor_name' =>  $answer->auther->fname,
+            'content' => $answer->content
+        ];
+        
+        return $response;
     }
 
     /**
