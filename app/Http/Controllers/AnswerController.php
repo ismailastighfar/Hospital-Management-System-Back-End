@@ -21,7 +21,7 @@ class AnswerController extends Controller
                 'id' => $answer->id,
                 'question_id' =>  $answer->question_id,
                 'content' => $answer->content,
-                'auther' => $answer->auther->doctor->fname.' '.$answer->auther->doctor->fname,
+                'auther' => $answer->auther->fname.' '.$answer->auther->doctor->fname,
                 
             ]);
         }
