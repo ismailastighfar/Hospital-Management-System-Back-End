@@ -14,7 +14,18 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        return Answer::all()->load('auther');
+        $answers = Answer::all()->load('auther');
+        $response = [];
+        foreach($answers as $answer){
+            array_push($response, [
+                'id' => $answer->id,
+                'question_id' =>  $answer->question_id,
+                'content' => $answer->content,
+                'auther' => $answer->auther->doctor->fname.' '.$answer->auther->doctor->fname,
+                
+            ]);
+        }
+        return response(['date' => $response ]);
     }
 
     /*
