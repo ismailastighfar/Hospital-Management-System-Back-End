@@ -39,12 +39,18 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'fullname' => 'string|required|max:255',
+            'age' => 'integer|required',
+            'cne' => 'string|required',
+            'phone' => 'required|integer',
+            'dateOfBirth' => 'date|required',
+            'avatar' => 'string|required',
             'users_id' => 'required|exists:users,id',
             'allergies' => 'string',
             'sickness' => 'string'
         ]);
 
-        if( auth()->user()->id == $request->users_id ){
+        if( auth()->user()->id == $request->user_id ){
 
              Patient::create($request->all());
              return response('Patient Created successfully');
@@ -63,9 +69,13 @@ class PatientController extends Controller
    
     public function update(Request $request, $id)
     {
+        $user = auth()->user();
         if(Patient::find($id)){
-            if( auth()->user()->id == $id ){
+            if( $user->patient->id == $id ){
                 $request->validate([
+                    'fullname',
+                    'phone',
+                    'address',
                     'allergies' => 'string',
                     'sickness' => 'string'
                 ]);

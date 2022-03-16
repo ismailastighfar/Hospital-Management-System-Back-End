@@ -27,26 +27,36 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fullname' => 'required|max:255|string',
             'username' =>  'required|max:255|string|unique:users,username',
             'email' =>  'required|max:255|email|unique:users,email',
             'gender' => 'required|string',
-            'password' => 'required|min:8|max:255|confirmed',
-            'phoneNumber' => 'required|numeric|unique:users,phoneNumber',
-            'address' => 'required',
-            'dateOfBirth' => 'required|date',
+            'password' => 'required|string|min:8|max:16|confirmed',
         ]);
         User::create([
-            'fullname' => $request->fullname,
+            
             'username' =>  $request->username,
             'email' =>  $request->email,
             'gender' => $request->gender,
             'password' => bcrypt($request->password),
-            'phoneNumber' => $request->phoneNumber,
-            'address' => $request->address,
-            'dateOfBirth' => $request->dateOfBirth,
+        
         ]);
-        return response(['message ' => 'success']);
+
+        $user = User::all()->last();
+        if( $user->role == 1){
+            $token = $user->createToken('logintoken')->plainTextToken;
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+            return response(['user' => $response ]);
+        }else{
+            return response([
+                'message ' => 'success',
+                'user' => $user
+        ]);
+        }
+
+
     }
 
     
@@ -59,15 +69,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if( auth()->user()->id === $id || auth()->user()->role == 0){
+
+        if( auth()->user()->id == $id || auth()->user()->role == 0){
             $request->validate([
-                'fullname' => 'required|max:255|string',
                 'username' =>  'required|max:255|string',
                 'email' =>  'required|max:255|email',
-                'gender' => 'required|string',
-                'phoneNumber' => 'required|numeric',
-                'address' => 'required|string',
-                'dateOfBirth' => 'required|date',
             ]);
 
             $user = User::find($id);
@@ -89,10 +95,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        
-        User::destory($id);  
-        return response(['message' => 'the user deleted successfully'] );
-        
+        if( auth()->user()->id == $id || auth()->user()->role == 0){
+            User::destory($id);  
+            return response(['message' => 'the user deleted successfully'] );
+        }
+        else{
+            return response(['message' => 'you are not authorized to do this oparation'], 405);
+        }
     }
 }
  
