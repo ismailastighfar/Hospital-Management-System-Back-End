@@ -25,15 +25,6 @@ class User extends Authenticatable
         'password',
     ];
 
-<<<<<<< HEAD
-=======
-    public function doctor(){
-        return $this->hasOne(Doctor::class, 'users_id');
-    }
-    public function patient(){
-        return $this->hasOne(Patient::class , 'users_id');
-    }
->>>>>>> 59d062eae7085e05f4ac327549f1fedcbbfe8212
     /**
      * The attributes that should be hidden for serialization.
      *
