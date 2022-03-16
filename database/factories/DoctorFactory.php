@@ -21,9 +21,16 @@ class DoctorFactory extends Factory
     public function definition()
     {
         return [
+            'fname' => $this->faker->firstName(),
+            'lname' => $this->faker->lastName(),
+            'age' => $this->faker->numberBetween(29,55),
+            'phone' =>$this->faker->randomNumber(8),
+            'proEmail' => $this->faker->safeEmailDomain(),
+            'description' => $this->faker->sentence(10),
+            'picture' => $this->faker->filePath(),
             'speciality' => Str::random(7),
-            'users_id' => User::factory(['role' => '2']),
-            'departments_id' =>  Department::factory(),
+            'user_id' => User::factory(['role' => '2']),
+            'department_id' =>  Department::factory(),
 
         ];
     }

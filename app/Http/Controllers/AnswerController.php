@@ -16,12 +16,23 @@ class AnswerController extends Controller
     {
         return Answer::all()->load('auther');
     }
+
+    /*
+        Get All Answers for a single Quetion
+    */
     public function questionAnswers($id){
-        return Answer::where('question_id', $id)->load('auther');
+
+        return Answer::where('questions_id', $id)->with('auther')->get();
+
     }
+
+    /*
+        Get All Answers given by a single doctor
+    */
     public function doctorAnswers($id){
-        return Answer::where('doctors_id', $id)->load('auther');
+        return Answer::where('doctors_id', $id)->with('auther')->get();
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -30,10 +41,10 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-
+        $user = auth()->user();
         $request->validate([
-            'doctor_id' => 'required|exists:doctors,id',
-            'question_id' => 'required|exists:questions,id',
+            'doctors_id' => $user->doctor->id,
+            'questions_id' => 'required|exists:questions,id',
             'content' => 'required|string'
         ]);
         Answer::create($request->all());
@@ -60,7 +71,9 @@ class AnswerController extends Controller
      */
     public function update(Request $request, Answer $answer)
     {
-        if( auth()->user()->id == $answer->doctor_id ){
+
+        $user = auth()->user();
+        if( $user->doctor->id == $answer->doctors_id ){
             $request->validate([         
                 'content' => 'required|string'
             ]);
@@ -69,7 +82,7 @@ class AnswerController extends Controller
                 'content' => $request->content,
             ]);
 
-            return response('answer updated successfully');
+            return response('an swer updated successfully');
         }else return response('you cannot do this operation', 405);
     }
 
@@ -81,8 +94,12 @@ class AnswerController extends Controller
      */
     public function destroy(Answer $answer)
     {   
-        if( auth()->user()->id == $answer->doctor_id ){
-        $answer->destroy($answer->id);
-        }else return response('you cannot do this operation', 405);
+        $user = auth()->user();
+        
+        if( $user->doctor->id == $answer->doctors_id ){
+            $answer->destroy($answer->id);
+        }
+        else
+            return response('you cannot do this operation', 405);
     }
 }

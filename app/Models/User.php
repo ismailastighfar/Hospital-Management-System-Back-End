@@ -18,23 +18,22 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'fullname',
-        'username',
         'role',
+        'usename',
         'gender',
-        'phoneNumber',
         'email',
         'password',
-        'address',
-        'dateOfBirth'
     ];
 
+<<<<<<< HEAD
+=======
     public function doctor(){
         return $this->hasOne(Doctor::class, 'users_id');
     }
     public function patient(){
         return $this->hasOne(Patient::class , 'users_id');
     }
+>>>>>>> 59d062eae7085e05f4ac327549f1fedcbbfe8212
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,4 +52,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // rolations 
+
+    public function doctor(){
+        return $this->hasOne(Doctor::class);
+    }
+    
+    public function patient(){
+        return $this->hasOne(Patient::class);
+    }
 }

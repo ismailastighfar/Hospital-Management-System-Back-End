@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('appointments_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('appointment_id');
+            $table->foreign('appointment_id')->references('id')->on('appointments')->constrained()->onDelete('cascade');
             $table->string('name_of_disease');
             $table->text('medicines');
             $table->text('usage_instruction');

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(1,['role' => '0'])->create();
-        \App\Models\Doctor::factory(5)->create();
-        \App\Models\Patient::factory(5)->create();
+        \App\Models\Doctor::factory(2)->create();
+        \App\Models\Patient::factory(2)->create();
     }
 }

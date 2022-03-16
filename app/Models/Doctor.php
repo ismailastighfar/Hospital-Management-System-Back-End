@@ -10,28 +10,35 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id',
-        'departments_id',
-        'speciality'
+        'fname',
+        'lname',
+        'age',
+        'phone',
+        'proEmail',
+        'description',
+        'speciality',   
+        'picture',
+        'user_id',
+        'department_id'
     ];
 
 
     public function user()
     {
-        return $this->belongsTo(User::class , 'users_id');
+        return $this->belongsTo(User::class);
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'departments_id');
+        return $this->belongsTo(Department::class);
     }
 
     public function answers(){
-        return $this->hasMany(Answer::class , 'answers_id');
+        return $this->hasMany(Answer::class);
     }
 
-    public function appointments (){
+    public function appointments(){
 
-        return $this->hasMany(Appointment::class , 'appointments_id');
+        return $this->hasMany(Appointment::class );
     }
 }

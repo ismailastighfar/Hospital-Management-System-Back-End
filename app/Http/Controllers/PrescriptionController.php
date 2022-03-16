@@ -6,7 +6,6 @@ use App\Models\Prescription;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PrescriptionController extends Controller
 {
@@ -17,15 +16,12 @@ class PrescriptionController extends Controller
      */
     public function index()
     {
+
       $user = auth()->user();
-
        $app =  Appointment::where('patients_id' , $user->patient->id )->first();
-
        $pres = Prescription::where('appointments_id' , $app->id )->get();
 
        return $pres;
-
-
 
     }
 

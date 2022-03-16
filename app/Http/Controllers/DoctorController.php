@@ -15,7 +15,7 @@ class DoctorController extends Controller
 
     public function show(Doctor $doctor){
         
-        return $doctor->load('user');
+        return   $doctor;
 
     }
 

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('patients_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('patient_id');
             $table->text('content');
             $table->timestamps();
+            $table->foreign('patient_id')->references('id')->on('patients')->constrained()->ondelete('cascade');
         });
     }
 

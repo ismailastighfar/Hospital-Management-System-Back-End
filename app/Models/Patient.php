@@ -10,22 +10,29 @@ class Patient extends Model
     use HasFactory;
     
     protected $fillable = [
-        'users_id',
+        'fullname',
+        'age',
+        'cne',
+        'address',
+        'phone',
+        'dateOfBirth',
+        'avatar',
+        'user_id',
         'allergies',
         'sickness'
     ];
 
     public function user(){
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(User::class);
     }
 
     public function questions(){
-        return $this->hasMany(Question::class, 'questions_id');
+        return $this->hasMany(Question::class);
     }
 
     public function appointments (){
 
-        return $this->hasMany(Appointment::class , 'appointments_id');
+        return $this->hasMany(Appointment::class);
     }
 
 

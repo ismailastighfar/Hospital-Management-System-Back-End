@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctors_id')->constrained();
-            $table->foreignId('questions_id')->constrained()->onDelete('cascade');
-            $table->text('content');    
+            $table->unsignedBigInteger('doctor_id');
+            $table->unsignedBigInteger('question_id');
+            $table->text('content');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->constrained()->onDelete('cascade');
+            $table->foreign('question_id')->constrained()->references('id')->on('questions')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

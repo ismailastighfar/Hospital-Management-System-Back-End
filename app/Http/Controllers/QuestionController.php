@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -14,13 +15,43 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::all()->load('auther','answers');
+
+        $questions = Question::all()->load('auther','answers');
+        $response = [];
+         foreach( $questions as $question ){
+             array_push($response, [
+                'id' => $question->id,
+                'auther_id' => $question->patient_id,
+                'content' => $question->content,
+                'auther_username' => $question->auther->user->username,
+                'answers' =>  $question->answers
+            ]);
+        }
+        return response(['data' => $response ]);
     }
 
-    public function patientQuestion($id){
-        return Question::where('patient_id',$id)->load('auther', 'answers');
+    /* 
+        Get All Patient stored Question 
+    */
+
+    public function patientQuestions($id){
+
+        $questions = Question::with('auther')->where('patient_id',$id)->get();
+
+        foreach( $questions as $question ){
+            array_push($response, [
+               'id' => $question->id,
+               'auther_id' => $question->patient_id,
+               'content' => $question->content,
+               'auther_username' => $question->auther->user->username,
+               'answers' =>  $question->answers
+           ]);
+        }
+       return response(['data' => $response ]);
+
+
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -29,12 +60,14 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $patient = auth()->user()->patient->id;
         $request->validate([
-            'patient_id' => 'required|exists:patients,id',
             'content' => 'required|string'
         ]);
-
-        Question::create($request->all());
+        Question::create([
+            'patient_id' => $patient,
+            'content' => $request->content,
+        ]);
         return response('Question created successfully');
     }
 
@@ -46,8 +79,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        
-        return $question;
+        return $question->with('answers')->get();
     }
 
     /**
@@ -59,15 +91,16 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        if(auth()->user()->id == $question->patient_id ){
+
+        $user = auth()->user();
+        if($user->patient->id == $question->patient_id ){
             $request->validate([
                 'content' => 'required|string',
             ]);
-            
             $question->update($request->all());
-            return response('Question updated successfull');
+            return response(['success'=>'Question updated successfully'],200);
         }else{
-            response('you cannot do this operation', 405);
+            return response(['error' => 'you cannot do this operation'], 405);
         }   
     }
 
@@ -79,11 +112,12 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        if(auth()->user()->id == $question->patient_id ){
+        $user = auth()->user();
+        if($user->patient->id == $question->patient_id || auth()->user()->role == 0 ){
             $question->destroy($question->id);
             return response('the question deleted successfully');
         }else{
-            response('you cannot do this operation', 405);
+            return response('you cannot do this operation', 405);
         }  
     }
 }

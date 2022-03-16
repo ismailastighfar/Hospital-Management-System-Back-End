@@ -15,10 +15,18 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->string('fullname');
+            $table->string('age');
+            $table->string('cne');
+            $table->string('address');
+            $table->decimal('phone',10,0);
+            $table->date('dateOfBirth');
+            $table->string('avatar');
             $table->text('allergies')->nullable();
             $table->text('sickness')->nullable();
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
         });
     }
 
