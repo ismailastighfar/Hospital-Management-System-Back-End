@@ -84,7 +84,7 @@ class AnswerController extends Controller
     {
 
         $user = auth()->user();
-        if( $user->doctor->id == $answer->doctors_id ){
+        if( $user->doctor->id == $answer->doctor_id ){
             $request->validate([         
                 'content' => 'required|string'
             ]);
@@ -107,7 +107,7 @@ class AnswerController extends Controller
     {   
         $user = auth()->user();
         
-        if( $user->doctor->id == $answer->doctors_id ){
+        if( $user->doctor->id == $answer->doctor_id ){
             $answer->destroy($answer->id);
         }
         else
