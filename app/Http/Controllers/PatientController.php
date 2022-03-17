@@ -45,15 +45,19 @@ class PatientController extends Controller
             'phone' => 'required|integer',
             'dateOfBirth' => 'date|required',
             'avatar' => 'string|required',
-            'users_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'allergies' => 'string',
             'sickness' => 'string'
         ]);
 
         if( auth()->user()->id == $request->user_id ){
 
-             Patient::create($request->all());
-             return response('Patient Created successfully');
+           $patient =  Patient::create($request->all());
+             return response([
+                 'message' => 'Patient Created successfully',
+                 'patient' => $patient
+            
+            ]);
              
         }
 

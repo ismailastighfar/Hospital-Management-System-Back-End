@@ -31,6 +31,7 @@ class UserController extends Controller
             'email' =>  'required|max:255|email|unique:users,email',
             'gender' => 'required|string',
             'password' => 'required|string|min:8|max:16|confirmed',
+            'role' => 'integer'
         ]);
         User::create([
             
@@ -38,6 +39,7 @@ class UserController extends Controller
             'email' =>  $request->email,
             'gender' => $request->gender,
             'password' => bcrypt($request->password),
+            'role' => $request->role,
         
         ]);
 

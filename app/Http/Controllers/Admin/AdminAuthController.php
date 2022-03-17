@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Patient;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class PatientAuthController extends Controller
+class AdminAuthController extends Controller
 {
     public function login(Request $request){
         // validate Request
-        if(!auth()->check()){
+
+        if(!auth()){
             $fields = $request->validate([
                 'email' => 'required|email|string',
                 'password' => 'required|string'
@@ -24,26 +25,24 @@ class PatientAuthController extends Controller
                     'message' => 'you must entered wrong creds'
                 ], 401);
             }
-            if( $user->role == 1){
-            $patient = [
-                'patient_id' => $user->patient->id,
-                'username' => $user->username,
-            ];
-            
-            $token = $user->createToken('logintoken')->plainTextToken;
-            $response = [
-                'patient' => $patient,
-                'token' => $token
-            ];
-            return response($response, 201);
+            if($user->role == 0){
+                $doctor = [
+                    'id' => $user->id,
+                    'username' => $user->username,
+                ];
+                $token = $user->createToken('myapptoken')->plainTextToken;
+                $response = [
+                    'doctor' => $doctor,
+                    'token' => $token
+                ];
+                return response($response, 201);
             }
             else 
-                return response(['error'=>'this url is only for doctors'], 403);
+                return response(['error'=> 'this url is only for admins'], 403);
         }
         else{
-            return response(['message' => 'ouare already sign in']);
+            return response(['message' => 'you are already sign in']);
         }
-    
     }
 
     // logout method
@@ -53,8 +52,4 @@ class PatientAuthController extends Controller
         return ['message' => 'logout'];
 
     }
-        
-    }
-
-    
-
+}

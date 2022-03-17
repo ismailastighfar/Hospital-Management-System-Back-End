@@ -10,6 +10,8 @@ use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Doctor\DoctorAuthController;
 use App\Http\Controllers\Patient\PatientAuthController;
+use App\Http\Controllers\Admin\AdminAuthController;
+
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isPatient;
 use App\Models\Appointment;
@@ -38,7 +40,12 @@ Route::prefix('doctor')->group( function(){
 
 Route::prefix('patient')->group(function(){
     Route::post('login', [PatientAuthController::class, 'login']);
-    Route::get('logout', [DoctorAuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('logout', [PatientAuthController::class, 'logout'])->middleware('auth:sanctum');
+
+});
+Route::prefix('admin')->group(function(){
+    Route::post('login', [AdminAuthController::class, 'login']);
+    Route::get('logout', [AdminAuthController::class, 'logout'])->middleware('auth:sanctum');
 
 });
 Route::middleware(['auth:sanctum'])->group( function() {
@@ -86,16 +93,16 @@ Route::middleware(['auth:sanctum'])->group( function() {
     // answers routers
 
     Route::post('/answers', [AnswerController::class, 'store'])->middleware('isDoctor');
-    Route::put('/answers', [AnswerController::class, 'update'])->middleware('isDoctor');
-    Route::delete('/answers', [AnswerController::class, 'delete'])->middleware('isDoctor');
+    Route::put('/answers/{answer}', [AnswerController::class, 'update'])->middleware('isDoctor');
+    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->middleware('isDoctor');
 
     Route::get('/answers/doctor/{id}',[AnswerController::class, 'doctorAnswer'])->middleware('isDoctor');
 
     // medicines routers
 
     Route::post('/medicines', [MedicineController::class, 'store'])->middleware('isAdmin');
-    Route::put('/medicines', [MedicineController::class, 'update'])->middleware('isAdmin');
-    Route::delete('/medicines', [MedicineController::class, 'delete'])->middleware('isAdmin');
+    Route::put('/medicines/{medicines}', [MedicineController::class, 'update'])->middleware('isAdmin');
+    Route::delete('/medicines/{medicines}', [MedicineController::class, 'destroy'])->middleware('isAdmin');
 
 });
 
@@ -138,5 +145,5 @@ Route::get('/medicines', [MedicineController::class, 'index']);
 Route::get('/medicines/{medicine}', [MedicineController::class, 'show']);
 Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 
-// Auth Routes 
+
 

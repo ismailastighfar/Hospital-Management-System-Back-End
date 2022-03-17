@@ -20,11 +20,10 @@ class DoctorController extends Controller
     }
 
     public function search(){
-
-        return Doctor::where('fname','like', '%'.request('name').'%')
-                     ->where('lname','like', '%'.request('name').'%')
-                    ->where('speciality','like', '%'.request('speciality').'%')
-                    ->get();
+        
+        return Doctor::latest()->filter(request(['name' , 'speciality']))->get();
+        
+                    
     }
 
      public function store(Request $request)
@@ -54,14 +53,18 @@ class DoctorController extends Controller
     {
 
         $request->validate([
-            'phone' => 'required',
-            'proEmail' => 'required|email',
+            'phone' => 'integer',
+            'proEmail' => 'email',
         ]);
 
         $doctor = Doctor::find($id);
 
         if($doctor) {
-            $doctor->update($request->all());
+            $doctor->update([
+                'proEmail' => $request->proEmail,
+                'phone' => $request->phone,
+        
+        ]);
             return response(['message' => 'the doctor updated successfully']);
         }
         return response(['error' => 'non doctor founded'] , 404);

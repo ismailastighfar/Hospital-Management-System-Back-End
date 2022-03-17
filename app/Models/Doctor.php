@@ -41,4 +41,22 @@ class Doctor extends Model
 
         return $this->hasMany(Appointment::class );
     }
+
+
+    public function scopeFilter($query , array $filters){
+
+      $query->when($filters['name'] ?? false , fn($query,$name) =>
+        $query
+            ->where('fname', 'like' , '%' . $name . '%')
+            ->orwhere('lname' , 'like' ,  '%' . $name . '%'),
+        );
+
+        $query->when($filters['speciality'] ?? false , fn($query,$speciality) =>
+
+            $query->where('speciality' , 'like' ,  '%' . $speciality . '%')
+        );
+
+      
+}
+
 }

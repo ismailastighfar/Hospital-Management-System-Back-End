@@ -21,11 +21,10 @@ class AnswerController extends Controller
                 'id' => $answer->id,
                 'question_id' =>  $answer->question_id,
                 'content' => $answer->content,
-                'auther' => $answer->auther->fname.' '.$answer->auther->doctor->fname,
-                
+                'auther' => $answer->auther->fname.' '.$answer->auther->doctor->fname, 
             ]);
         }
-        return response(['date' => $response ]);
+        return response(['data' => $response ]);
     }
 
     
@@ -46,12 +45,15 @@ class AnswerController extends Controller
     {
         $user = auth()->user();
         $request->validate([
-            'doctors_id' => $user->doctor->id,
-            'questions_id' => 'required|exists:questions,id',
+            'question_id' => 'required|exists:questions,id',
             'content' => 'required|string'
         ]);
-        Answer::create($request->all());
-        return response('answer creater successfully');
+        Answer::create([
+            'doctor_id' => $user->doctor->id,
+            'question_id' => $request->question_id,
+            'content' => $request->content
+        ]);
+        return response(['message' => 'answer creater successfully']);
     }
 
     /**
@@ -106,6 +108,7 @@ class AnswerController extends Controller
         
         if( $user->doctor->id == $answer->doctor_id ){
             $answer->destroy($answer->id);
+            return response([ 'message' => 'you cannot do this operation']);
         }
         else
             return response('you cannot do this operation', 405);
