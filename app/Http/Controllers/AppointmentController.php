@@ -21,10 +21,10 @@ class AppointmentController extends Controller
             return Appointment::all()->with('patient','doctor')->get();
         }
         else if(auth()->user()->role == 2){
-            return Appointment::where('doctors_id', $user->doctor->id)->with('patient')->get();
+            return Appointment::where('doctor_id', $user->doctor->id)->with('patient')->get();
         }
         else if(auth()->user()->role == 1){
-           return  Appointment::where('patients_id', $user->patient->id)->with('doctor')->get();
+           return  Appointment::where('patient_id', $user->patient->id)->with('doctor')->get();
         }
     }
 
@@ -52,7 +52,7 @@ class AppointmentController extends Controller
         $user = auth()->user();
 
         $request->validate([
-            'doctors_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'required|exists:doctors,id',
             'details' => 'required|string|max:255|',
             'date' => 'required|date',
             'time' => 'date_format:H:i',
@@ -61,7 +61,7 @@ class AppointmentController extends Controller
         
         if($this->checkDateAvailability($request->date)){
 
-            $app = Appointment::where('doctors_id',$request->doctors_id)->where('patients_id',$user->patient->id)->first();
+            $app = Appointment::where('doctor_id',$request->doctor_id)->where('patient_id',$user->patient->id)->first();
 
             if($app && ($app->status == 0 || $app->status == 1)){
                 return response([
@@ -71,8 +71,8 @@ class AppointmentController extends Controller
             }
             else{
                 Appointment::create([
-                    'doctors_id' => $request->doctors_id,
-                    'patients_id' => $user->patient->id,
+                    'doctor_id' => $request->doctor_id,
+                    'patient_id' => $user->patient->id,
                     'details' => $request->details,
                     'date' => $request->date,
                     'time' => $request->time,
@@ -98,7 +98,7 @@ class AppointmentController extends Controller
         $user = auth()->user();
         if($user->role == 1){
             
-            if($user->patient->id  == $appointment->patients_id ||  $user->role ==  0 ){
+            if($user->patient->id  == $appointment->patient_id ||  $user->role ==  0 ){
                 return $appointment;
             }
             else {
@@ -107,7 +107,7 @@ class AppointmentController extends Controller
         }
         else if($user->role == 2){
 
-            if($user->doctor->id == $appointment->doctors_id || $user->role ==  0 ){ 
+            if($user->doctor->id == $appointment->doctor_id || $user->role ==  0 ){ 
                 return $appointment;
             }
             else {
@@ -124,7 +124,7 @@ class AppointmentController extends Controller
     public function updateStatusToAccepted(Appointment $appointment){
         $user = auth()->user();
 
-        if($user->doctor->id == $appointment->doctors_id ){
+        if($user->doctor->id == $appointment->doctor_id ){
             $appointment->status = 1;
             return response(['message' => 'status updated',
                              'appointment' => $appointment
@@ -134,7 +134,7 @@ class AppointmentController extends Controller
 
     public function updateStatusToCompleted(Appointment $appointment){
         $user = auth()->user();
-        if($user->doctor->id == $appointment->doctors_id ){
+        if($user->doctor->id == $appointment->doctor_id ){
             $appointment->status = 2;
             return response(['message' => 'status updated',
                             'appointment' => $appointment
@@ -152,7 +152,7 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {   
         $request->validate([
-            'doctors_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'required|exists:doctors,id',
             'details' => 'required|string|max:255|',
             'date' => 'required|date',
             'time' => 'date_format:H:i',
@@ -161,7 +161,7 @@ class AppointmentController extends Controller
         if($appointment->status == 0){
             $user = auth()->user();
 
-            if($user->patient->id == $appointment->patients_id || auth()->user()->role ==  0 ){
+            if($user->patient->id == $appointment->patient_id || auth()->user()->role ==  0 ){
                 $appointment->update($request->all());
                 return response(['message' => 'the appiontment updated successfully']);
             }
@@ -189,7 +189,7 @@ class AppointmentController extends Controller
     {
         $user = auth()->user();
 
-        if($user->patient->id == $appointment->patients_id){
+        if($user->patient->id == $appointment->patient_id){
             Appointment::destroy($appointment->id);
             return response(['message' => 'appointment deleted ']);
         }

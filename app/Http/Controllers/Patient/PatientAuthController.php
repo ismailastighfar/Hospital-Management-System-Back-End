@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class PatientAuthController extends Controller
 {
     public function login(Request $request){
         // validate Request
-        if(!auth()->check()){
             $fields = $request->validate([
                 'email' => 'required|email|string',
                 'password' => 'required|string'
@@ -39,10 +39,7 @@ class PatientAuthController extends Controller
             }
             else 
                 return response(['error'=>'this url is only for doctors'], 403);
-        }
-        else{
-            return response(['message' => 'ouare already sign in']);
-        }
+        
     
     }
 

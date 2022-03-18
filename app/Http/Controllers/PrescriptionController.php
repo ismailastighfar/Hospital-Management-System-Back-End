@@ -18,8 +18,8 @@ class PrescriptionController extends Controller
     {
 
       $user = auth()->user();
-       $app =  Appointment::where('patients_id' , $user->patient->id )->first();
-       $pres = Prescription::where('appointments_id' , $app->id )->get();
+       $app =  Appointment::where('patient_id' , $user->patient->id )->first();
+       $pres = Prescription::where('appointment_id' , $app->id )->get();
 
        return $pres;
 
@@ -34,7 +34,7 @@ class PrescriptionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'appointments_id' => 'required|exists:appointments,id',
+          'appointment_id' => 'required|exists:appointments,id',
           'name_of_disease' => 'required',
           'medicines' => 'required',
           'usage_instruction' => 'required',

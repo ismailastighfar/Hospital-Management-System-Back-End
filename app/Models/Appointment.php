@@ -29,14 +29,10 @@ class Appointment extends Model
 
         return $this->belongsTo(Doctor::class);
     }
+   
     public function prescription(){
         
         return $this->belongsTo(Prescription::class);
-    }
-
-    public function prescription(){
-        
-        return $this->belongsTo(Prescription::class , 'appointments_id');
     }
 
     
