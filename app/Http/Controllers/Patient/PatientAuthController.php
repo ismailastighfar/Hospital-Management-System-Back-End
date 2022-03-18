@@ -11,7 +11,8 @@ class PatientAuthController extends Controller
 {
     public function login(Request $request){
         // validate Request
-        if(!auth()->check()){
+        
+        if(!auth('sanctum')->check()){
             $fields = $request->validate([
                 'email' => 'required|email|string',
                 'password' => 'required|string'
@@ -38,12 +39,9 @@ class PatientAuthController extends Controller
             return response($response, 201);
             }
             else 
-                return response(['error'=>'this url is only for doctors'], 403);
+                return response(['error'=>'this url is only for patient'], 403);
         }
-        else{
-            return response(['message' => 'ouare already sign in']);
-        }
-    
+        else return ('you are already sign up');
     }
 
     // logout method

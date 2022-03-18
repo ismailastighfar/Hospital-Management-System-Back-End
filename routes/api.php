@@ -12,14 +12,8 @@ use App\Http\Controllers\Doctor\DoctorAuthController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
-use App\Http\Middleware\isAdmin;
-use App\Http\Middleware\isPatient;
-use App\Models\Appointment;
-use App\Models\Question;
-use GuzzleHttp\Middleware;
-use Illuminate\Contracts\Session\Session;
+
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session as FacadesSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +33,7 @@ Route::prefix('doctor')->group( function(){
 });
 
 Route::prefix('patient')->group(function(){
-    Route::post('login', [PatientAuthController::class, 'login']);
+    Route::post('login', [PatientAuthController::class, 'login'])->middleware('guest');
     Route::get('logout', [PatientAuthController::class, 'logout'])->middleware('auth:sanctum');
 
 });
@@ -118,9 +112,6 @@ Route::post('/users', [UserController::class, 'store']);
 Route::get('/doctors', [DoctorController::class, 'index']);
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
 Route::get('/doctor/search' , [DoctorController::class, 'search']);
-
-// Patient Route
-
 
 
 // Departement Routes

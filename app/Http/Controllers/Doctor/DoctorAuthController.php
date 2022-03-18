@@ -12,11 +12,7 @@ class DoctorAuthController extends Controller
 {
     public function login(Request $request){
         // validate Request
-        
-        if(Auth::check()){
-            return response(['message' => 'you are already sign in']);
-        }
-        else {
+        if(!auth('sanctum')->check()){
             $fields = $request->validate([
                 'email' => 'required|email|string',
                 'password' => 'required|string'
@@ -45,14 +41,17 @@ class DoctorAuthController extends Controller
             }
             else 
                 return response(['error'=>'this url is only for doctor'], 403);
+
         }
+        else
+            return response(['message' => 'you are already sign in']);
+        
     }
 
     
 
     // logout method
     public function logout(Request $request){
-       
         
         $request->user()->tokens()->delete();
 
