@@ -1,18 +1,18 @@
 
-we make a laravel crud rest api with sanctum-auth 
+#we make a laravel crud rest api with sanctum-auth 
 
-test using postman
+#test using postman
 
 
-database My Sql :
+#database My Sql :
 
-tables : 
+##tables : 
 
 -> users , patients , doctors , appointments , prescriptions , departments , medicines , questions , answers
 
 
 
-models : 
+##models : 
 
 users hasOne patient , doctor 
 
@@ -30,19 +30,19 @@ question hasMany answers
 
 
 
-Controllers : 
+##Controllers : 
 
 -> crud for all modeles
 -> authentication (login, logout) for the users(patient,doctor,admin)
 
 
-factories : 
+##factories : 
 
 -> users , patient , doctor , department 
 
 
 
-next steps : 
+##next steps : 
 
 -> send email after storing appointment 
 
