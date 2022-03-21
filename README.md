@@ -1,10 +1,10 @@
 
-we make a crud rest api with sanctum-auth 
+we make a laravel crud rest api with sanctum-auth 
 
 test using postman
 
 
-database: 
+database My Sql :
 
 tables : 
 
