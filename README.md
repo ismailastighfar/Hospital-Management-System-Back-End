@@ -1,3 +1,4 @@
+# class diagram
 
 # we make a laravel crud rest api with sanctum-auth 
 
@@ -9,24 +10,6 @@
 ## tables : 
 
 -> users , patients , doctors , appointments , prescriptions , departments , medicines , questions , answers
-
-
-
-## models : 
-
-users hasOne patient , doctor 
-
-doctor belongTo department
-
-appointment belongTo patient , doctor 
-
-appointment hasOne prescription 
-
-patient hasMany questions 
-
-doctor hasMany answers 
-
-question hasMany answers
 
 
 
