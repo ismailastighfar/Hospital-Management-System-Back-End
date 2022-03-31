@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5170da8207f8755f9de183855bc775dc27a4ff9a
 class Appointment extends Model
 {
     use HasFactory;
