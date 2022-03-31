@@ -32,7 +32,7 @@ class MedicineController extends Controller
             'name' => 'required|max:255|unique:medicines,name',
             'description' => 'required',
             'quantity' => 'required',
-            'category' => 'required',
+            'category' => 'required|exists:categories,id',
             'expire_date' => 'required'
  
         ]);
@@ -64,7 +64,7 @@ class MedicineController extends Controller
     {
         $medicine = Medicine::find($id);
 
-        $attr =$request->validate([
+        $attr = $request->validate([
             'description' => 'required',
             'quantity' => 'required'
         ]);
