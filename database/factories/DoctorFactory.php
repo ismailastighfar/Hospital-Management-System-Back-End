@@ -28,7 +28,6 @@ class DoctorFactory extends Factory
             'proEmail' => $this->faker->safeEmailDomain(),
             'description' => $this->faker->sentence(10),
             'picture' => $this->faker->filePath(),
-            'speciality' => Str::random(7),
             'user_id' => User::factory(['role' => '2']),
             'department_id' =>  Department::factory(),
 

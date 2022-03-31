@@ -41,7 +41,13 @@ class Doctor extends Model
 
         return $this->hasMany(Appointment::class );
     }
+     
+    public function specialty(){
 
+        return $this->hasOne(Specialty::class );
+    }
+
+    
 
     public function scopeFilter($query , array $filters){
 
@@ -51,12 +57,12 @@ class Doctor extends Model
             ->orwhere('lname' , 'like' ,  '%' . $name . '%'),
         );
 
-        $query->when($filters['speciality'] ?? false , fn($query,$speciality) =>
+        $query->when($filters['specialty'] ?? false, fn($query, $specialty)=>
+            $query->whereHas('specialty', fn ($query) =>
+                $query->where('name', $specialty))
+    );
 
-            $query->where('speciality' , 'like' ,  '%' . $speciality . '%')
-        );
-
+}
       
 }
 
-}

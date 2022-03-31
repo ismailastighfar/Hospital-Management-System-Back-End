@@ -21,7 +21,7 @@ class DoctorController extends Controller
 
     public function search(){
         
-        return Doctor::latest()->filter(request(['name' , 'speciality']))->get();
+        return Doctor::latest()->filter(request(['name' , 'specialty']))->get();
         
                     
     }
@@ -38,7 +38,6 @@ class DoctorController extends Controller
             'picture' => 'required|image|mimes:jpg,png,jpeg',
             'department_id' => 'required',
             'user_id' => 'required',
-            'speciality' => 'required|string' 
         ]);
 
         $imageName = $request->fname . $request->lname . '.' . $request->picture->extension();

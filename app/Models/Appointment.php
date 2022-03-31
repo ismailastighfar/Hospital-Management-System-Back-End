@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use SebastianBergmann\CodeCoverage\Driver\PathExistsButIsNotDirectoryException;
 
 class Appointment extends Model
 {
@@ -34,6 +33,8 @@ class Appointment extends Model
         
         return $this->belongsTo(Prescription::class);
     }
+
+    
 
     
 }

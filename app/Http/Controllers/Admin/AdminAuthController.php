@@ -12,7 +12,7 @@ class AdminAuthController extends Controller
     public function login(Request $request){
         // validate Request
 
-        if(!auth()){
+        if(!auth('sanctum')->check()){
             $fields = $request->validate([
                 'email' => 'required|email|string',
                 'password' => 'required|string'
@@ -41,8 +41,10 @@ class AdminAuthController extends Controller
                 return response(['error'=> 'this url is only for admins'], 403);
         }
         else{
-            return response(['message' => 'you are already sign in']);
+            return response(['messqge' => 'you are already sign up']);
         }
+        
+        
     }
 
     // logout method

@@ -21,10 +21,11 @@ class AnswerController extends Controller
                 'id' => $answer->id,
                 'question_id' =>  $answer->question_id,
                 'content' => $answer->content,
-                'auther' => $answer->auther->fname.' '.$answer->auther->doctor->fname, 
+                'auther' => $answer->auther->fname.' '.$answer->auther->lname,
+                
             ]);
         }
-        return response(['data' => $response ]);
+        return response(['date' => $response ]);
     }
 
     
@@ -51,9 +52,9 @@ class AnswerController extends Controller
         Answer::create([
             'doctor_id' => $user->doctor->id,
             'question_id' => $request->question_id,
-            'content' => $request->content
+            'content'=> $request->content,
         ]);
-        return response(['message' => 'answer creater successfully']);
+        return response('answer creater successfully');
     }
 
     /**
@@ -63,13 +64,9 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Answer $answer)
-    { 
-        $response = [
-            'doctor_name' =>  $answer->auther->fname,
-            'content' => $answer->content
-        ];
-        
-        return $response;
+    {
+
+        return $answer;
     }
 
     /**
@@ -108,7 +105,8 @@ class AnswerController extends Controller
         
         if( $user->doctor->id == $answer->doctor_id ){
             $answer->destroy($answer->id);
-            return response([ 'message' => 'you cannot do this operation']);
+            return response('deleted');
+
         }
         else
             return response('you cannot do this operation', 405);

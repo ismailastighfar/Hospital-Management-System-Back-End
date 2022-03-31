@@ -53,7 +53,7 @@ class AppointmentController extends Controller
 
         $request->validate([
             'doctor_id' => 'required|exists:doctors,id',
-            'details' => 'required|string|max:255|',
+            'details' => 'required|string|max:255',
             'date' => 'required|date',
             'time' => 'date_format:H:i',
 

@@ -11,8 +11,8 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Doctor\DoctorAuthController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\SpecialtyController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Route::prefix('doctor')->group( function(){
 });
 
 Route::prefix('patient')->group(function(){
-    Route::post('login', [PatientAuthController::class, 'login']);
+    Route::post('login', [PatientAuthController::class, 'login'])->middleware('guest');
     Route::get('logout', [PatientAuthController::class, 'logout'])->middleware('auth:sanctum');
 
 });
@@ -136,5 +136,8 @@ Route::get('/medicines', [MedicineController::class, 'index']);
 Route::get('/medicines/{medicine}', [MedicineController::class, 'show']);
 Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 
+
+
+Route::resource('specialties' , SpecialtyController::class);
 
 
