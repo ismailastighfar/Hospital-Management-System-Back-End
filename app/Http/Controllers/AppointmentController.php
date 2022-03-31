@@ -30,10 +30,10 @@ class AppointmentController extends Controller
 
 
 
-    public  function checkDateAvailability($date){
+    public  function checkDateAvailability($date, $time){
         
-        $appointment = Appointment::where('date', $date )->get();
-        if(count($appointment) < 20){
+        $appointment = Appointment::where('date', $date )->where('time', $time)->get();
+        if($appointment){
             return true;
         }
         else{
@@ -59,7 +59,7 @@ class AppointmentController extends Controller
 
         ]);
         
-        if($this->checkDateAvailability($request->date)){
+        if($this->checkDateAvailability($request->date , $request->time)){
 
             $app = Appointment::where('doctor_id',$request->doctor_id)->where('patient_id',$user->patient->id)->first();
 
@@ -156,7 +156,7 @@ class AppointmentController extends Controller
             'details' => 'required|string|max:255|',
             'date' => 'required|date',
             'time' => 'date_format:H:i',
-            
+            'duration' => 'string'
         ]);
         if($appointment->status == 0){
             $user = auth()->user();

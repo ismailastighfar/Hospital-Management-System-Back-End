@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id');
             $table->date('date');
             $table->time('time');
+            $table->integer('duration')->default(40);
             $table->text('details');
             $table->integer('status')->default(0);
             $table->timestamps();

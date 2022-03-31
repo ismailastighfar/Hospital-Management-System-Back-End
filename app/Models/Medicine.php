@@ -15,7 +15,6 @@ class Medicine extends Model
         'quantity',
         'price',
         'category',
-        'expire_date'
     ];
 
     public function categorie(){

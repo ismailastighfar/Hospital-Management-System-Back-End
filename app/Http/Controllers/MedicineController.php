@@ -33,7 +33,6 @@ class MedicineController extends Controller
             'description' => 'required',
             'quantity' => 'required',
             'category' => 'required|exists:categories,id',
-            'expire_date' => 'required'
  
         ]);
 
