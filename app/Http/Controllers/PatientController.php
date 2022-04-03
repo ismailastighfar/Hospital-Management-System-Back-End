@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class PatientController extends Controller
 {
@@ -53,6 +55,9 @@ class PatientController extends Controller
         if( auth()->user()->id == $request->user_id ){
 
            $patient =  Patient::create($request->all());
+
+           Mail::to(auth()->user()->email)->send(new WelcomeMail($request->fullname));
+ 
              return response([
                  'message' => 'Patient Created successfully',
                  'patient' => $patient
