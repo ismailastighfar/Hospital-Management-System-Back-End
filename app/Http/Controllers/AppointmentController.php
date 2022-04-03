@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Http\Controllers\Controller;
+use App\Mail\CreateAppointmentMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+<<<<<<< HEAD
 use App\Mail\UpdateAppointmentMail;
+=======
+
+>>>>>>> 0aae6f6e533254406902cbef110469a014784d1a
 class AppointmentController extends Controller
 {
     /**
@@ -77,6 +82,9 @@ class AppointmentController extends Controller
                     'date' => $request->date,
                     'time' => $request->time,
                 ]);
+
+                Mail::to($user->email)->send(new CreateAppointmentMail());
+
                 return response(['message'=>'appiontment created successfully ']);
             }
         }
