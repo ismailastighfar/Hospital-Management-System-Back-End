@@ -16,7 +16,7 @@ class Doctor extends Model
         'phone',
         'proEmail',
         'description',
-        'speciality',   
+        'speciality_id',   
         'picture',
         'user_id',
         'department_id'
