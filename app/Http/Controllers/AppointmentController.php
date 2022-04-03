@@ -6,7 +6,8 @@ use App\Models\Appointment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UpdateAppointmentMail;
 class AppointmentController extends Controller
 {
     /**
@@ -127,7 +128,8 @@ class AppointmentController extends Controller
             $appointment->status = 1;
             return response(['message' => 'status updated',
                              'appointment' => $appointment
-        ]); 
+        ]);
+
         }
     }
 
@@ -150,18 +152,13 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {   
-        $request->validate([
-            'doctor_id' => 'required|exists:doctors,id',
-            'details' => 'required|string|max:255|',
-            'date' => 'required|date',
-            'time' => 'date_format:H:i',
-            'duration' => 'string'
-        ]);
+        
         if($appointment->status == 0){
             $user = auth()->user();
 
             if($user->patient->id == $appointment->patient_id || auth()->user()->role ==  0 ){
                 $appointment->update($request->all());
+                Mail::to(auth()->user()->email)->send(new UpdateAppointmentMail());
                 return response(['message' => 'the appiontment updated successfully']);
             }
             else return response(['message' => 'you are not allowed to update this appiontment'] );
