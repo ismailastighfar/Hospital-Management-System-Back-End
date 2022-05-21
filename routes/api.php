@@ -25,6 +25,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/avatars', function(){
+     $avatars = [ 
+        asset('avatars/avatar1.png'),
+        asset('avatars/avatar2.png'),
+        asset('avatars/avatar3.png'),
+        asset('avatars/avatar4.png'),
+        asset('avatars/avatar5.png'),
+        asset('avatars/avatar6.png')
+     ];
+     return $avatars;
+
+});
 
 Route::prefix('doctor')->group( function(){
     Route::post('login', [DoctorAuthController::class, 'login']);
