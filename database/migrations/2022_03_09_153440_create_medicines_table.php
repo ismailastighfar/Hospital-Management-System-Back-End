@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->float('price');
             $table->unsignedBigInteger('categorie');
-            $table->foreign('categorie')->references('id')->on('categories');
+            $table->foreign('categorie')->references('id')->on('categories')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
     }

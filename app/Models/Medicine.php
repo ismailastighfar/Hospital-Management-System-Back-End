@@ -14,7 +14,7 @@ class Medicine extends Model
         'description',
         'quantity',
         'price',
-        'category',
+        'categorie'
     ];
 
     public function categorie(){

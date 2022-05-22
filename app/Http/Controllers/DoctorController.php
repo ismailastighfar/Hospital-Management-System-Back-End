@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
 {
     public function index(){
        
-        return Doctor::all();
+       
+        return DB::table('doctors')
+        ->join('specialties','doctors.specialty_id' , '=', 'specialties.id')
+        ->get();
     }
 
     public function show(Doctor $doctor){
@@ -21,9 +25,8 @@ class DoctorController extends Controller
 
     public function search(){
         
-        return Doctor::latest()->filter(request(['name' , 'specialty']))->get();
-        
-                    
+         return Doctor::latest()->filter(request(['name' , 'specialty']))->get();
+       
     }
 
      public function store(Request $request)

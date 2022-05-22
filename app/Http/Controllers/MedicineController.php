@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Medicine;
 use Faker\Provider\Medical;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class MedicineController extends Controller
 {
@@ -16,7 +16,10 @@ class MedicineController extends Controller
      */
     public function index()
     {
-        return Medicine::all();
+         return DB::table('medicines')
+        ->join('categories','medicines.categorie_id' , '=', 'categories.id')
+        ->select('medicines.*', 'categories.name as category-name')
+        ->get();;
     }
 
     /**
@@ -32,8 +35,6 @@ class MedicineController extends Controller
             'name' => 'required|max:255|unique:medicines,name',
             'description' => 'required',
             'quantity' => 'required',
-            'category' => 'required|exists:categories,id',
- 
         ]);
 
          Medicine::create($request->all());
