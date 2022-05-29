@@ -17,8 +17,8 @@ class MedicineController extends Controller
     public function index()
     {
          return DB::table('medicines')
-        ->join('categories','medicines.categorie_id' , '=', 'categories.id')
-        ->select('medicines.*', 'categories.name as category-name')
+        ->join('categories','medicines.categorie' , '=', 'categories.id')
+        ->select('medicines.*', 'categories.name as categoryname')
         ->get();;
     }
 
@@ -96,8 +96,8 @@ class MedicineController extends Controller
      * @param  str  $name
      * @return \Illuminate\Http\Response
      */
-    public function search($name)
+    public function search($name , $category)
     {
-        return Medicine::where('name', 'like', '%'.$name.'%')->where('category')->get();
+        return Medicine::where('name', 'like', '%'.$name.'%')->orwhere('category','like', '%'.$category.'%')->get();
     }
 }

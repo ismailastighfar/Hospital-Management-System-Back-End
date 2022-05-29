@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(1,['role' => '0'])->create();
         \App\Models\Doctor::factory(5)->create();
         \App\Models\Patient::factory(2)->create();
+<<<<<<< HEAD
+       
+=======
             
+>>>>>>> 897a3dd4aa7f4b61babb9644afc74804b3e5a2c5
         \App\Models\Categorie::factory(['name' => 'Liquid', 'description' => 'The active part of the medicine is combined with a liquid to make it easier to take or better absorbed. A liquid may also be called a mixture, solution or syrup. Many common liquids are now available without any added colouring or sugar.'])->create();
         \App\Models\Categorie::factory(['name' => 'Tablet', 'description' => 'The active ingredient is combined with another substance and pressed into a round or oval solid shape. There are different types of tablet. Soluble or dispersible tablets can safely be dissolved in water.' ])->create();
         \App\Models\Categorie::factory(['name' => 'Capsules', 'description' => 'The active part of the medicine is contained inside a plastic shell that dissolves slowly in the stomach. You can take some capsules apart and mix the contents with your childs favourite food. Others need to be swallowed whole, so the medicine isn’t absorbed until the stomach acid breaks down the capsule shell.'])->create();
@@ -36,6 +40,10 @@ class DatabaseSeeder extends Seeder
 
 
 
+
+        \App\Models\Medicine::factory(['name' => 'Penicillin' , 'description' => 'As the first antibiotic, it pointed the way to the treatment of microbial disease. Without penicillin, 75% of the people now alive would not be alive because their parents or grandparents would have succumbed to infections. The effects of a drug like this are absolutely mind-boggling.' , 'quantity' => '500' , 'price' => '120' , 'categorie' => '1'])->create();
+        \App\Models\Medicine::factory(['name' => 'Insulin' , 'description' => 'Patients with advanced diabetes cant use the energy stored in their bodies. No matter how much they eat, they starve. Why? Their bodies stop making a hormone known as insulin, needed to convert sugar into energy.' , 'quantity' => '200' , 'price' => '150' , 'categorie' => '2'])->create();
+        \App\Models\Medicine::factory(['name' => 'Ether' , 'description' => 'Patients with advanced diabetes cant use the energy stored in their bodies. No matter how much they eat, they starve. Why? Their bodies stop making a hormone known as insulin, needed to convert sugar into energy.' , 'quantity' => '50' , 'price' => '200'  , 'categorie' => '3'])->create();
 
         \App\Models\Specialty::factory(['name' => 'Dentistry'])->create();
         \App\Models\Specialty::factory(['name' => 'Head'])->create();

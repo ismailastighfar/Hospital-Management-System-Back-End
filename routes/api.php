@@ -13,6 +13,7 @@ use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategorieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,5 +154,7 @@ Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 
 
 Route::resource('specialties' , SpecialtyController::class);
+Route::resource('categories' , CategorieController::class);
+
 
 

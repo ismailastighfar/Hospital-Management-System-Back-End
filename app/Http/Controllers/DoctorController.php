@@ -19,7 +19,11 @@ class DoctorController extends Controller
 
     public function show(Doctor $doctor){
         
-        return   $doctor;
+        return   DB::table('doctors')
+        ->where('doctors.id' , '=' , $doctor->id)
+        ->join('specialties','doctors.specialty_id' , '=', 'specialties.id')
+        ->join('departments','doctors.department_id' , '=', 'departments.id')
+        ->get();
 
     }
 
