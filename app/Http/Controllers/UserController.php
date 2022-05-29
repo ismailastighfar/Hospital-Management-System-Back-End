@@ -34,7 +34,7 @@ class UserController extends Controller
             'role' => 'integer'
         ]);
         User::create([
-            
+                
             'username' =>  $request->username,
             'email' =>  $request->email,
             'gender' => $request->gender,
