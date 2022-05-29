@@ -37,7 +37,7 @@ class QuestionController extends Controller
     public function patientQuestions($id){
 
         $questions = Question::with('auther')->where('patient_id',$id)->get();
-
+        $response = [];
         foreach( $questions as $question ){
             array_push($response, [
                'id' => $question->id,
@@ -59,7 +59,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $patient = auth()->user()->patient->id;
         $request->validate([
             'content' => 'required|string'

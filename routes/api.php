@@ -110,7 +110,10 @@ Route::middleware(['auth:sanctum'])->group( function() {
     Route::put('/medicines/{medicines}', [MedicineController::class, 'update'])->middleware('isAdmin');
     Route::delete('/medicines/{medicines}', [MedicineController::class, 'destroy'])->middleware('isAdmin');
 
+
 });
+
+
 
 // Public Routers
 
@@ -147,7 +150,6 @@ Route::get('/answers/question/{id}',[AnswerController::class, 'questionAnswers']
 Route::get('/medicines', [MedicineController::class, 'index']);
 Route::get('/medicines/{medicine}', [MedicineController::class, 'show']);
 Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
-
 
 
 Route::resource('specialties' , SpecialtyController::class);
