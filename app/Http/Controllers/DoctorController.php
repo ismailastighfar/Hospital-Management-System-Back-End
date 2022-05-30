@@ -1,6 +1,6 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use Illuminate\Http\Request;
@@ -28,7 +28,8 @@ class DoctorController extends Controller
     }
 
     public function search(){
-         return Doctor::latest()->filter(request(['name' , 'specialty']))       ->get();
+        
+         return Doctor::latest()->filter(request(['name' , 'specialty']))->get();
        
     }
 

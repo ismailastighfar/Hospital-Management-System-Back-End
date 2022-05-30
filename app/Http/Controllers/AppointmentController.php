@@ -56,7 +56,8 @@ class AppointmentController extends Controller
             'doctor_id' => 'required|exists:doctors,id',
             'details' => 'required|string|max:255',
             'date' => 'required|date',
-            'time' => 'date_format:H:i',
+            'time' => 'date_format:H:i:s',
+
         ]);
         if($this->checkDateAvailability($request->date , $request->time, $request->doctor_id)){
 
@@ -79,11 +80,11 @@ class AppointmentController extends Controller
 
                 Mail::to($user->email)->send(new CreateAppointmentMail());
 
-                return response(['message'=>'appiontment created successfully']);
+                return response(['message'=>'appiontment created successfully ']);
             }
         }
         else {
-            return response(['message' => 'you should choose an other day'],    422);
+            return response(['message' => 'you should choose an other day']);
         }
         
           

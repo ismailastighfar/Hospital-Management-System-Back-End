@@ -44,7 +44,7 @@ class Doctor extends Model
      
     public function specialty(){
 
-        return $this->hasOne(Specialty::class);
+        return $this->hasOne(Specialty::class );
     }
 
     
@@ -58,8 +58,8 @@ class Doctor extends Model
         );
 
         $query->when($filters['specialty'] ?? false, fn($query, $specialty)=>
-            $query->where('specialty_id', $specialty
-                )
+            $query->whereHas('specialty', fn ($query) =>
+                $query->where('name', $specialty))
     );
 
 }

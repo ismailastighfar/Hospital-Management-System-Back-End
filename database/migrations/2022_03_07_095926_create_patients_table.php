@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('age');
             $table->string('cne');
-            $table->string('address')->nullable();
+            $table->string('address');
             $table->decimal('phone',10,0);
             $table->date('dateOfBirth');
             $table->string('avatar');

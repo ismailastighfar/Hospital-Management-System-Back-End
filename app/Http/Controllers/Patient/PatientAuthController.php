@@ -28,16 +28,15 @@ class PatientAuthController extends Controller
             }
             if( $user->role == 1){
             $patient = [
-                'patient' => $user->patient,
+                'patient_id' => $user->patient->id,
                 'username' => $user->username,
-                'user_id' => $user->id
             ];
             
             $token = $user->createToken('logintoken')->plainTextToken;
             $response = [
                 'patient' => $patient,
                 'token' => $token
-            ];  
+            ];
             return response($response, 201);
             }
             else 
