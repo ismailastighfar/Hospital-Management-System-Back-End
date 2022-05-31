@@ -44,12 +44,12 @@ class PatientController extends Controller
             'fullname' => 'string|required|max:255',
             'age' => 'integer|required',
             'cne' => 'string|required',
-            'phone' => 'required|integer',
+            'phone' => 'required|string',
             'dateOfBirth' => 'date|required',
+            'address' => 'string',
             'avatar' => 'string|required',
             'user_id' => 'required|exists:users,id',
-            'allergies' => 'string',
-            'sickness' => 'string'
+            
         ]);
 
         if( auth()->user()->id == $request->user_id ){
