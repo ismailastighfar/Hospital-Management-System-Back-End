@@ -16,15 +16,17 @@ class QuestionController extends Controller
     public function index()
     {
 
-        $questions = Question::all()->load('auther','answers');
+        $questions = Question::latest()->with('auther','answers')->get();
         $response = [];
          foreach( $questions as $question ){
              array_push($response, [
                 'id' => $question->id,
                 'auther_id' => $question->patient_id,
                 'content' => $question->content,
+                'auther_avatar' => $question->auther->avatar,
                 'auther_username' => $question->auther->user->username,
-                'answers' =>  $question->answers
+                'answers' =>  $question->answers,
+                'created_at' => $question->created_at->diffForHumans()
             ]);
         }
         return response(['data' => $response ]);

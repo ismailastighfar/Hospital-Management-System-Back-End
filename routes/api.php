@@ -8,6 +8,8 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Doctor\DoctorAuthController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\AdminAuthController;
@@ -69,7 +71,7 @@ Route::middleware(['auth:sanctum'])->group( function() {
 
     Route::get('/users', [UserController::class, 'index'])->middleware('isAdmin');
     Route::put('/users/{id}', [UserController::class, 'update']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('isAdmin');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('isAdmin');
 
     // doctor routers
 
@@ -152,6 +154,11 @@ Route::get('/medicines/search/{name}', [MedicineController::class, 'search']);
 
 
 Route::resource('specialties' , SpecialtyController::class);
+Route::resource('reviews' , ReviewController::class);
+Route::get('reviews/patient/{id}' , [ReviewController::class, 'PatientReviews' ]);
+Route::get('reviews/doctor/{id}' , [ReviewController::class, 'DoctorReviews' ]);
+Route::resource('feedbacks' , FeedbackController::class);
+
 Route::resource('categories' , CategorieController::class);
 
 

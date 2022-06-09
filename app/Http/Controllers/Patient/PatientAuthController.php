@@ -28,7 +28,7 @@ class PatientAuthController extends Controller
             }
             if( $user->role == 1){
             $patient = [
-                'patient_id' => $user->patient->id,
+                'patient' => $user->patient,
                 'username' => $user->username,
             ];
             

@@ -94,11 +94,10 @@ class UserController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        if( auth()->user()->id == $id || auth()->user()->role == 0){
-            User::destory($id);  
+     */ 
+    public function destroy(User $user){
+        if( auth()->user()->id == $user->id || auth()->user()->role == 0){
+            User::find($user->id)->delete();
             return response(['message' => 'the user deleted successfully'] );
         }
         else{

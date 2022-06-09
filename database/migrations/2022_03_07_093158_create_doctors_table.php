@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('proEmail');
             $table->text('description');
             $table->string('picture');
+            $table->enum('availability', ['Available', 'Unavailable'])->default('Unavailable');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('specialty_id');
             $table->foreign('department_id')->references('id')->on('departments')->constrained()->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
-            $table->foreign('specialty_id')->references('id')->on('specialties')->constrained()->onDelete('cascade');
+            $table->foreign('specialty_id')->references('id')->on('specialties')->constrained()->onDelete('cascade');   
             $table->timestamps();
         });
     }

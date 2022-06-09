@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+
 
 use App\Models\Doctor;
 use Illuminate\Http\Request;
@@ -19,17 +19,19 @@ class DoctorController extends Controller
 
     public function show(Doctor $doctor){
         
-        return   DB::table('doctors')
-        ->where('doctors.id' , '=' , $doctor->id)
-        ->join('specialties','doctors.specialty_id' , '=', 'specialties.id')
-        ->join('departments','doctors.department_id' , '=', 'departments.id')
-        ->get();
+        return  $doctor->load(['specialty','review','department']);
 
     }
 
     public function search(){
-        
-         return Doctor::latest()->filter(request(['name' , 'specialty']))->get();
+         return Doctor::latest()
+            ->filter(request(['name', 'specialty']))
+            ->when(request('specialty') ?? false , fn($query,$name) => 
+                $query->where('specialty_id','=', request('specialty')))
+            ->with('specialty')
+            ->with('review')
+            ->with('department')
+            ->get();
        
     }
 
@@ -44,6 +46,7 @@ class DoctorController extends Controller
             'description' => 'required|min:10|max:255',
             'picture' => 'required|image|mimes:jpg,png,jpeg',
             'department_id' => 'required',
+            'specialty_id' => 'required',
             'user_id' => 'required',
         ]);
 

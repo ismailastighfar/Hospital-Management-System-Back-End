@@ -43,24 +43,23 @@ class Doctor extends Model
     }
      
     public function specialty(){
-
-        return $this->hasOne(Specialty::class );
+        return $this->belongsTo(Specialty::class);
     }
 
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
     
 
     public function scopeFilter($query , array $filters){
 
-      $query->when($filters['name'] ?? false , fn($query,$name) =>
-        $query
-            ->where('fname', 'like' , '%' . $name . '%')
-            ->orwhere('lname' , 'like' ,  '%' . $name . '%'),
-        );
+    
 
-        $query->when($filters['specialty'] ?? false, fn($query, $specialty)=>
-            $query->whereHas('specialty', fn ($query) =>
-                $query->where('name', $specialty))
-    );
+    $query->when($filters['name'] ?? false , fn($query,$name) =>
+        $query
+        ->where('fname', 'like' , '%' . $name . '%')
+        ->orwhere('lname' , 'like' ,  '%' . $name . '%'),
+    ); 
 
 }
       

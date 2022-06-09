@@ -56,7 +56,7 @@ class AppointmentController extends Controller
             'doctor_id' => 'required|exists:doctors,id',
             'details' => 'required|string|max:255',
             'date' => 'required|date',
-            'time' => 'date_format:H:i:s',
+            'time' => 'date_format:H:i',
 
         ]);
         if($this->checkDateAvailability($request->date , $request->time, $request->doctor_id)){

@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\http\Controllers\Dashboard\Admin;
+use App\http\Controllers\Dashboard\Patients;
+use App\http\Controllers\Dashboard\Doctors;
+use App\http\Controllers\Dashboard\Specialties;
+use App\http\Controllers\Dashboard\Appointments;
+use App\http\Controllers\Admin\AdminAuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +23,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// private route
+Route::middleware('auth')->group( function() {
+    //logout 
+    Route::get('/logout', [AdminAuthController::class, 'logout']);
+    //index page
+    Route::get('/index', [Admin::class, 'index'])->name('index');
+    // patients
+    Route::get('/patients', [Patients::class, 'index'] )->name('patients');
+    Route::get('/patients/profile/{patient}', [Patients::class, 'profile'] )->name('patient.profile'); 
+    // doctors
+    Route::get('/doctors/profile/{doctor}', [Doctors::class, 'profile'] )->name('doctor.profile'); 
+    //specialties
+    Route::get('/Specialties', [Specialties::class, 'index'] )->name('specialties');
+    //appointments 
+    Route::get('/Appointments', [Appointments::class, 'index'] )->name('appointments');
+
+
+});
+// public routes for login
+Route::middleware('guest')->group( function() {
+    Route::get('/login', [AdminAuthController::class, 'index'] )->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'] );
+});
+
+
+
+

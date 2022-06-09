@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        
+       
         \App\Models\User::factory(1,['role' => '0'])->create();
-        \App\Models\Doctor::factory(5)->create();
-        \App\Models\Patient::factory(2)->create();
+        
+        \App\Models\Patient::factory(10)->create();
        
         \App\Models\Categorie::factory(['name' => 'Liquid', 'description' => 'The active part of the medicine is combined with a liquid to make it easier to take or better absorbed. A liquid may also be called a mixture, solution or syrup. Many common liquids are now available without any added colouring or sugar.'])->create();
         \App\Models\Categorie::factory(['name' => 'Tablet', 'description' => 'The active ingredient is combined with another substance and pressed into a round or oval solid shape. There are different types of tablet. Soluble or dispersible tablets can safely be dissolved in water.' ])->create();
@@ -41,10 +43,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Medicine::factory(['name' => 'Insulin' , 'description' => 'Patients with advanced diabetes cant use the energy stored in their bodies. No matter how much they eat, they starve. Why? Their bodies stop making a hormone known as insulin, needed to convert sugar into energy.' , 'quantity' => '200' , 'price' => '150' , 'categorie' => '2'])->create();
         \App\Models\Medicine::factory(['name' => 'Ether' , 'description' => 'Patients with advanced diabetes cant use the energy stored in their bodies. No matter how much they eat, they starve. Why? Their bodies stop making a hormone known as insulin, needed to convert sugar into energy.' , 'quantity' => '50' , 'price' => '200'  , 'categorie' => '3'])->create();
 
-        \App\Models\Specialty::factory(['name' => 'Dentistry'])->create();
-        \App\Models\Specialty::factory(['name' => 'Head'])->create();
-        \App\Models\Specialty::factory(['name' => 'Headache'])->create();
-        \App\Models\Specialty::factory(['name' => 'Hiv/Aids'])->create();
        
         
 

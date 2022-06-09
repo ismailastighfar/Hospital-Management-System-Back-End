@@ -18,12 +18,12 @@ class Appointment extends Model
         'status'
     ];
 
-    public function patient (){
+    public function patient(){
 
         return $this->belongsTo(Patient::class);
     }
 
-    public function Doctor (){
+    public function doctor(){
 
         return $this->belongsTo(Doctor::class);
     }
