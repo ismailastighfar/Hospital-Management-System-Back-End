@@ -10,4 +10,7 @@ class Specialties extends Controller
     public function index(){
         return view('specialty.specialties', ['specialties' => Specialty::all() ]);
     }
+    public function create(){
+        return view('form-advanced');
+    }
 }

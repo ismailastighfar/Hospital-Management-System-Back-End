@@ -33,9 +33,12 @@ Route::middleware('auth')->group( function() {
     Route::get('/patients', [Patients::class, 'index'] )->name('patients');
     Route::get('/patients/profile/{patient}', [Patients::class, 'profile'] )->name('patient.profile'); 
     // doctors
-    Route::get('/doctors/profile/{doctor}', [Doctors::class, 'profile'] )->name('doctor.profile'); 
+    Route::get('/doctors/profile/{doctor}/{nbweek?}', [Doctors::class, 'profile'] )->name('doctor.profile'); 
+    Route::get('/doctors/create', [Doctors::class, 'create'] )->name('doctor.profile'); 
+    Route::get('/doctors', [Doctors::class, 'index'] )->name('doctor'); 
     //specialties
-    Route::get('/Specialties', [Specialties::class, 'index'] )->name('specialties');
+    Route::get('/specialties', [Specialties::class, 'index'] )->name('specialties');
+    Route::get('/specialties/create', [Specialties::class, 'create'] );
     //appointments 
     Route::get('/Appointments', [Appointments::class, 'index'] )->name('appointments');
 
