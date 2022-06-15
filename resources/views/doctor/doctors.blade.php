@@ -71,7 +71,7 @@
 												<td>{{ $doctor->age }}</td>												
 												<td>{{ $doctor->user->email }}</td>												
 												<td>{{ $doctor->phone }}</td>												
-												<td><a class="btn btn-sm btn-info  btn-block" href='{{ url("/doctors/profile/") }}' >See More</a></td>
+												<td><a class="btn btn-sm btn-info  btn-block" href='{{ url( "/doctors/profile/".$doctor->id ) }}' >View Profile</a></td>
 												<td><a class="btn btn-sm btn-danger btn-block"  >Delete</a></td>
 												<td><a class="btn btn-outline-success btn-sm btn-block" >Edit</a></td>
 											</tr>
