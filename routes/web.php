@@ -22,7 +22,7 @@ use App\Http\Controllers\Dashboard\Medicines;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 // private route
 Route::middleware('auth')->group( function() {

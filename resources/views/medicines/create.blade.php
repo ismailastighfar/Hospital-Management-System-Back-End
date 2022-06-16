@@ -115,6 +115,7 @@
                 formElem.onsubmit = async (e) => {
                    e.preventDefault();
                    let datas = new FormData(formElem);
+				   console.log(datas)
 				axios({
                         method: "post",
                         url: window.location.origin + '/api/medicines',
