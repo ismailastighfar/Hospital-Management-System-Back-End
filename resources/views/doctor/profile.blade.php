@@ -12,7 +12,7 @@
 					<div class="d-flex my-xl-auto right-content">
 						
 						<div class="mb-3 mb-xl-0">
-							<button type="button" class="btn btn-danger   ml-2"><i class="mdi mdi-delete mr-2"></i>Delete</button>
+							<button type="button" onclick="Delete({{ $doctor->user->id }})" class="btn btn-danger   ml-2"><i class="mdi mdi-delete mr-2"></i>Delete</button>
 						</div>
 						<div class=" mb-3 mb-xl-0">
 							<button type="button" class="btn btn-info   ml-2"><i class="mdi mdi-pen mr-2"></i>Edit</button>
@@ -273,4 +273,12 @@
 		<!-- main-content closed -->
 @endsection
 @section('js')
+<script>
+	function Delete(user){
+		axios.delete( window.location.origin + '/api/users/'+ user)
+		.then( function (res) {
+			window.location.href = '/doctors'	
+		})
+	}
+</script>
 @endsection

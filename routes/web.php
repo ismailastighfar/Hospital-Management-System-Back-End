@@ -21,7 +21,7 @@ use App\http\Controllers\Admin\AdminAuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 // private route
 Route::middleware('auth')->group( function() {

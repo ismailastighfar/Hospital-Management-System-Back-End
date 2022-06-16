@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Appointment;
 use App\models\Doctor;
+use App\models\Specialty;
+use App\models\Department;
 use Carbon\Carbon;
 class Doctors extends Controller
 {
@@ -44,6 +46,6 @@ class Doctors extends Controller
         return view('doctor.doctors', [ 'doctors' => Doctor::all()]);
     }
     public function create(){
-        return view('doctor.create', [ 'doctors' => Doctors::all()]);
+        return view('doctor.create', ['specialties' => Specialty::all() , 'departments' => Department::all() ]);
     }
 }
