@@ -68,7 +68,8 @@
                     <h4 class="card-title mg-b-0">Doctor information</h4>
                 </div>
             </div>
-            <form class="card-body row">
+            <form class="card-body row" id="formdoc">
+                @csrf
                 <div class="form-group col-12 d-flex flex-column align-items-center ">
                     <img src="{{ asset('/doc_img/defaultpng.png')}}" class="w-25 border" alt="">
                     <label for="picture"><button  class="btn btn-sm btn-info my-2">Choose a Picture</button> </label>
@@ -90,7 +91,7 @@
                     <label class="main-content-label tx-11 tx-medium tx-gray-600">Email</label> <input class="form-control" required="" name="proEmail" type="email">
                 </div>
                 <div class="form-group col-6">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">Last name</label> 
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">Specialties</label> 
                     <select class="form-control" required="" type="text"> 
                         @foreach ($specialties as $specialty)
                             <option value="{{ $specialty->id }}"> {{ $specialty->name }}</option>
@@ -98,7 +99,7 @@
                     </select>
                 </div>
                 <div class="form-group col-6">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">Last name</label> 
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">Departments</label> 
                     <select class="form-control" required="" type="text"> 
                         @foreach ($departments as $department)
                         <option value="{{ $department->id }}"> {{ $department->dept_name }}</option>
@@ -134,6 +135,28 @@
 				axios({
                         method: "post",
                         url: window.location.origin + '/api/users',
+                        data: datas,
+                        headers: { "Content-Type": "multipart/form-data" },
+                        })
+                        .then(function (response) {
+                            //handle success
+                            console.log(response);
+                        })
+                        .catch(function (response) {
+                            //handle error
+                            console.log(response);
+                        });
+			}
+        }
+
+        function CreateDoc(){
+            formdoc.onsubmit = async (e) => {
+                   e.preventDefault();
+                   let datas = new FormData(formdoc);
+                   datas.append("user_id" , 4);
+				axios({
+                        method: "post",
+                        url: window.location.origin + '/api/doctors',
                         data: datas,
                         headers: { "Content-Type": "multipart/form-data" },
                         })
