@@ -44,6 +44,6 @@ class Doctors extends Controller
         return view('doctor.doctors', [ 'doctors' => Doctor::all()]);
     }
     public function create(){
-        return view('doctor.create', [ 'doctors' => Doctors::all()]);
+        return view('doctor.create', [ 'doctors' => Doctor::all()]);
     }
 }
