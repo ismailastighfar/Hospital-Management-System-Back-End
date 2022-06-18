@@ -66,8 +66,9 @@ class MedicineController extends Controller
         $medicine = Medicine::find($id);
 
         $attr = $request->validate([
-            'description' => 'required',
-            'quantity' => 'required'
+            'quantity' => 'required',
+            'price' => 'required',
+
         ]);
 
         $medicine = Medicine::find($id);

@@ -61,7 +61,7 @@ class SpecialtyController extends Controller
      */
     public function update(Request $request, Specialty $specialty)
     {
-        //
+        
     }
 
     /**

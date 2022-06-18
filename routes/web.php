@@ -9,6 +9,7 @@ use App\http\Controllers\Dashboard\Appointments;
 use App\http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Dashboard\Departments;
 use App\Http\Controllers\Dashboard\Medicines;
+use App\Http\Controllers\dashboard\Questions;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,9 @@ Route::middleware('auth')->group( function() {
     Route::get('/doctors', [Doctors::class, 'index'] )->name('doctor'); 
     //specialties
     Route::get('/specialties', [Specialties::class, 'index'] )->name('specialties');
-    Route::get('/specialties/create', [Specialties::class, 'create'] );
+    Route::get('/specialties/create', [Specialties::class, 'create'] )->name('specialty.create');
+
+
     //appointments 
     Route::get('/Appointments', [Appointments::class, 'index'] )->name('appointments');
 
@@ -47,11 +50,17 @@ Route::middleware('auth')->group( function() {
     //departments 
     Route::get('/departments', [Departments::class, 'index'] )->name('departments');
     Route::get('/departments/create', [Departments::class, 'create'] )->name('departments.create');
+    Route::get('/departments/edit/{id}', [Departments::class, 'edit'] )->name('departments.edit');
+
 
 
     //medicines 
     Route::get('/medicines', [Medicines::class, 'index'] )->name('medicines');
     Route::get('/medicines/create', [Medicines::class, 'create'] )->name('medicines.create');
+    Route::get('/medicines/edit/{id}', [Medicines::class, 'edit'] )->name('medicines.edit');
+
+    // questions
+    Route::get('/questions', [Questions::class, 'index'] )->name('questions');
 
 
 

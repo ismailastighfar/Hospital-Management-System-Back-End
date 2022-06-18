@@ -8,7 +8,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/Create Specialty</span>
+							<h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/edit Medicine</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -42,18 +42,30 @@
 								</div>
 								<p class="mg-b-20"></p>
 								<div class="pd-30 pd-sm-40 bg-gray-200">
-									<div class="row row-xs align-items-center mg-b-20">
+									
+									
+									
+                                    <div class="row row-xs align-items-center mg-b-20">
 										<div class="col-md-4">
-											<label class="form-label mg-b-0">specialty name</label>
+											<label class="form-label mg-b-0">medicine quantity</label>
 										</div>
 										<div class="col-md-8 mg-t-5 mg-md-t-0">
-											<input class="form-control"  type="text" name="name">
+											<input class="form-control"  type="text" name="quantity">
 										</div>
 									</div>
-									
-									
-                                   
-									<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5" onclick="Create()">Create</button>
+
+                                    <div class="row row-xs align-items-center mg-b-20">
+										<div class="col-md-4">
+											<label class="form-label mg-b-0">medicine price</label>
+										</div>
+										<div class="col-md-8 mg-t-5 mg-md-t-0">
+											<input class="form-control"  type="text" name="price">
+										</div>
+									</div>
+
+								
+
+									<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5" onclick="Edit({{$medicine->id}})">Save</button>
 									<button type="reset" class="btn btn-dark pd-x-30 mg-t-5">Cancel</button>
                                     
                                     
@@ -78,20 +90,19 @@
 <script src="{{URL::asset('assets/js/form-layouts.js')}}"></script>
 
  <script>
-			function Create(){
+			function Edit(idMed){
                 formElem.onsubmit = async (e) => {
                    e.preventDefault();
                    let datas = new FormData(formElem);
 				   console.log(datas)
 				axios({
-                        method: "post",
-                        url: window.location.origin + '/api/specialties',
+                        method: "put",
+                        url: window.location.origin + '/api/medicines/' + idMed,
                         data: datas,
                         headers: { "Content-Type": "multipart/form-data" },
                         })
                         .then(function (response) {
-						 alert("specialty created succefully")
-                         console.log(response);
+						    console.log(response);
                         })
                         .catch(function (response) {
                             //handle error

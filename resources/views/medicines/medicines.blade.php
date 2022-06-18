@@ -60,7 +60,7 @@
 												<td>{{ $med->categoryname}}</td>
 												<td>{{ $med->price}}</td>											
 												<td><a class="btn btn-sm btn-danger btn-block" onclick="Delete({{ $med->id }})"  >Delete</a></td>
-												<td><a class="btn btn-sm btn-success btn-block" onclick="modal()"  >Edit</a></td>
+												<td><a class="btn btn-sm btn-success btn-block" href='{{ url( "/medicines/edit/".$med->id ) }}' >Edit</a></td>
 											</tr>
 											@endforeach
 										</tbody>
