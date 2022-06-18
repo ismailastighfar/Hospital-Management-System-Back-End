@@ -13,6 +13,10 @@ class Departments extends Controller
         return view('department.departments', ['departments' => Department::all() ]);
     }
 
+    public function edit($id){
+        return view('department.edit', ['department' =>  Department::find($id) ]);
+    }
+
     public function create(){
         return view('department.create');
     }

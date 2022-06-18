@@ -55,7 +55,7 @@
 												<td>{{ $dep->dept_name }}</td>
 												<td>{{ $dep->dept_details}}</td>												
 												<td><a class="btn btn-sm btn-danger btn-block" onclick="Delete({{ $dep->id }})" >Delete</a></td>
-												<td><a class="btn btn-sm btn-success btn-block"  >Edit</a></td>
+												<td><a class="btn btn-sm btn-success btn-block" href='{{ url( "/departments/edit/".$dep->id ) }}'  >Edit</a></td>
 											</tr>
 											@endforeach
 										</tbody>

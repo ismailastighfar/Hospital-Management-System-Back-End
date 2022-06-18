@@ -89,7 +89,7 @@ Route::middleware(['auth:sanctum'])->group( function() {
     // department routers
 
     Route::post('/departments', [DepartmentController::class, 'store'])->middleware('isAdmin');
-    Route::put('/departments', [DepartmentController::class, 'update'])->middleware('isAdmin');
+    Route::put('/departments/{id}', [DepartmentController::class, 'update'])->middleware('isAdmin');
     Route::delete('/departments/{id}', [DepartmentController::class, 'destroy'])->middleware('isAdmin');
 
     // question routers
