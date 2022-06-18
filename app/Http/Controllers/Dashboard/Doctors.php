@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Appointment;
 use App\models\Doctor;
-use App\models\Specialty;
 use App\models\Department;
+use App\models\Specialty;
 use Carbon\Carbon;
 class Doctors extends Controller
 {

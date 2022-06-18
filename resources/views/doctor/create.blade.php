@@ -15,52 +15,58 @@
 @section('content')
 
 
-
-<div class="row row-sm" >
-    <div class="col-6 ">
+<div class="row row-sm d-flex justify-content-center" >
+    <div class="col-6 " id="userInfo">
         <div class="card"  >
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title mg-b-0">User information</h4>
                 </div>
             </div>
+            <div class="alert alert-danger m-3 d-none" id="userError">
+            </div>
             <form class="card-body row" id="userForm">
+                @csrf
                 <div class="form-group col-12">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">username</label> <input class="form-control" required="" name="fname" type="text">
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">username</label>
+                    <input class="form-control" required="" name="username" type="text" id="username">
                 </div>
                 <div class="form-group col-12">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">email</label> <input class="form-control" required="" name="lname" type="text">
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">email</label>
+                    <input class="form-control" required="" name="email" type="email">
+                </div>
+                
+                <div class="form-group col-6">
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">password</label>
+                    <input class="form-control" required="" name="password" type="password">
                 </div>
                 <div class="form-group col-6">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">password</label> <input class="form-control" required="" name="age" type="password">
+                    <label class="main-content-label tx-11 tx-medium tx-gray-600">password confirmation</label>
+                    <input class="form-control" required="" name="password_confirmation" type="password">
                 </div>
-                <div class="form-group col-6">
-                    <label class="main-content-label tx-11 tx-medium tx-gray-600">password confirmation</label> <input class="form-control" required="" name="password_confirmation" type="password">
-                </div>
-                <div class="form-group col-6 d-flex " >
+                <input type="hidden" value="2" name="role">
+                {{-- <div class="form-group col-6 d-flex " >
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1">
+                        <input class="form-check-input" type="radio" value='female' name="gender" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
                           famale
                         </label>
                       </div>
                       <div class="form-check ml-2">
-                        <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" checked>
+                        <input class="form-check-input" type="radio" value='male' name="gender" id="flexRadioDefault2" checked>
                         <label class="form-check-label" for="flexRadioDefault2">
                           male
                         </label>
                       </div>
-                </div>
-                @csrf
+                </div> --}}
                 <div class="form-group col-12 mt-3">
-                    <button  class="btn btn-primary px-4" onclick="createUser()">save</button>
+                    <button type="submit" class="btn btn-primary px-4">save</button>
                     <button type="reset" class="btn px-2">clear</button>
                 </div>
             </form>
         </div>
     </div>
-    {{-- </div> --}}
-    <div class="col-6 ">
+    <div class="col-6 d-none " id="doctorInfo">
         <div class="card">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
@@ -123,23 +129,25 @@
 @endsection
 @section('js')
     <script>
-        function createUser(){
-            var userForm = document.getElementById('userForm');
-            data = new FormData(userForm);
-            userForm.onsubmit = async (e) => {
+          
+        userForm.onsubmit = async (e) => {
             e.preventDefault()
-    
+            let data = new FormData();
+            data.append('username', username)
+            console.log(data)
             axios.post( window.location.origin + '/api/users' , { headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Content-Type": "multipart/form-data"
             }, data
-            } ).then( function (res) {
-                console.log(res.data)	
-                console.log(data)
+            }).then( function (res) {
+                console.log(res.data)
+                userInfo.classList.add('d-none')
+                userInfo.classList.remove('d-none')
             }).catch( (error) => {
-                alert(error)
+                userError.innerText = 'error: ' + error.response.data
+                userError.classList.remove('d-none')
             })
-
-        }
         }
        
     
