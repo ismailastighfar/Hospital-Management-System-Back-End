@@ -41,8 +41,8 @@
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 11V4H4v8.17l.59-.58.58-.59H6z" opacity=".3"/><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-5 7c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10zM4.59 11.59l-.59.58V4h11v7H5.17l-.58.59z"/></svg><span class="side-menu__label">Departments</span><i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-morris') }}">Department list</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-morris') }}">add Department</a></li>
+							<li><a class="slide-item" href="{{ route('departments') }}">Department list</a></li>
+							<li><a class="slide-item" href="{{ route('departments.create') }}">add Department</a></li>
 						</ul>
 					</li>
 					<li class="slide">
@@ -55,8 +55,8 @@
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3"/><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg><span class="side-menu__label">Medecines</span><i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-morris') }}">Medecines list</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-morris') }}">add Medecine</a></li>
+							<li><a class="slide-item" href="{{ route('medicines') }}">Medecines list</a></li>
+							<li><a class="slide-item" href="{{ route('medicines.create') }}">add Medecine</a></li>
 						</ul>
 					</li>
 					<li class="slide">

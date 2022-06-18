@@ -16,7 +16,7 @@
 
 
 <div class="row row-sm d-flex justify-content-center" >
-    <div class="col-6 " id="userInfo">
+    <div class="col-12 col-md-6 " id="userInfo">
         <div class="card"  >
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
@@ -45,7 +45,7 @@
                     <input class="form-control" required="" name="password_confirmation" type="password">
                 </div>
                 <input type="hidden" value="2" name="role">
-                {{-- <div class="form-group col-6 d-flex " >
+                <div class="form-group col-6 d-flex " >
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value='female' name="gender" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
@@ -58,26 +58,27 @@
                           male
                         </label>
                       </div>
-                </div> --}}
+                </div>
                 <div class="form-group col-12 mt-3">
-                    <button type="submit" class="btn btn-primary px-4">save</button>
+                    <button  class="btn btn-primary px-4" onclick="CreateUser()">save</button>
                     <button type="reset" class="btn px-2">clear</button>
                 </div>
             </form>
         </div>
     </div>
-    <div class="col-6 d-none " id="doctorInfo">
+    <div class="col-12 col-md-6 d-none " id="doctorInfo">
         <div class="card">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title mg-b-0">Doctor information</h4>
                 </div>
             </div>
-            <form class="card-body row">
+            
+            <form class="card-body row" id="doctorForm">
                 <div class="form-group col-12 d-flex flex-column align-items-center ">
-                    <img src="{{ asset('/doc_img/defaultpng.png')}}" class="w-25 border" alt="">
-                    <label for="picture"><button  class="btn btn-sm btn-info my-2">Choose a Picture</button> </label>
-                    <input type="file" id="picture" name="picture" class="d-none">
+                    <img src="{{ asset('/doc_img/defaultpng.png')}}" class="w-50 border" height="250px" style="object-fit: cover" id="picture" alt="">
+                    <label for="pictureInpute" class="btn btn-sm btn-info my-2" >Choose a Picture</label>
+                    <input type="file"  name="picture" style="opacity: 0" id="pictureInpute">
                 </div>
                 <div class="form-group col-6">
                     <label class="main-content-label tx-11 tx-medium tx-gray-600">First name</label> <input class="form-control" required="" name="fname" type="text">
@@ -96,7 +97,7 @@
                 </div>
                 <div class="form-group col-6">
                     <label class="main-content-label tx-11 tx-medium tx-gray-600">Last name</label> 
-                    <select class="form-control" required="" type="text"> 
+                    <select class="form-control" required="" name="specialty_id" type="text"> 
                         @foreach ($specialties as $specialty)
                             <option value="{{ $specialty->id }}"> {{ $specialty->name }}</option>
                         @endforeach
@@ -104,7 +105,7 @@
                 </div>
                 <div class="form-group col-6">
                     <label class="main-content-label tx-11 tx-medium tx-gray-600">Last name</label> 
-                    <select class="form-control" required="" type="text"> 
+                    <select class="form-control" required="" name="department_id" type="text"> 
                         @foreach ($departments as $department)
                         <option value="{{ $department->id }}"> {{ $department->dept_name }}</option>
                         @endforeach
@@ -113,8 +114,12 @@
                 <div class="form-group col-12">
                     <label class="main-content-label tx-11 tx-medium tx-gray-600">Description</label> <textarea class="form-control" rows="6" required="" name="description"></textarea>
                 </div>
+                <div id="userId">
+                </div>
+                <div class="alert alert-danger col-12 d-none" id="doctorError">
+                </div>
                 <div class="form-group col-12 my-2">
-                    <button type="submit" class="btn btn-primary ">save</button>
+                    <button onclick='CreateDoctor()' class="btn btn-primary ">save</button>
                     <button type="submit" class="btn ">cancel</button>
                 </div>
             </form>
@@ -130,26 +135,58 @@
 @section('js')
     <script>
           
-        userForm.onsubmit = async (e) => {
-            e.preventDefault()
-            let data = new FormData();
-            data.append('username', username)
-            console.log(data)
-            axios.post( window.location.origin + '/api/users' , { headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                "Content-Type": "multipart/form-data"
-            }, data
-            }).then( function (res) {
-                console.log(res.data)
-                userInfo.classList.add('d-none')
-                userInfo.classList.remove('d-none')
-            }).catch( (error) => {
-                userError.innerText = 'error: ' + error.response.data
-                userError.classList.remove('d-none')
-            })
+        function CreateUser(){
+            userForm.onsubmit = async (e) => {
+                   e.preventDefault();
+                   let datas = new FormData(userForm);
+				axios({
+                        method: "post",
+                        url: window.location.origin + '/api/users',
+                        data: datas,
+                        headers: { "Content-Type": "multipart/form-data" },
+                        })
+                        .then(function (res) {
+                            console.log(res.data.user.id)
+                            userInfo.classList.add('d-none')
+                            doctorInfo.classList.remove('d-none')
+                            userId.innerHTML=  '<input type="hidden" name="user_id" value="'+res.data.user.id+'">'
+                            
+                        })
+                        .catch(function (error) {
+                            //handle error
+                            console.log(error.response.data.message)
+                            userError.innerText = 'error: ' + error.response.data.message
+                            userError.classList.remove('d-none')
+                        });
+			}
         }
-       
+        pictureInpute.addEventListener("change", () => {
+            const formPicture = pictureInpute.files[0];
+            const url = URL.createObjectURL(formPicture);
+            picture.setAttribute('src', url)
+        })
+        function CreateDoctor(){
+                doctorForm.onsubmit = async (e) => {
+                e.preventDefault();
+                let datas = new FormData(doctorForm);
+				axios({
+                        method: "post",
+                        url: window.location.origin + '/api/doctors',
+                        data: datas,
+                        headers: { "Content-Type": "multipart/form-data" },
+                        })
+                        .then(function (response) {
+                            //handle success
+                            
+                            window.location.href = '/doctors/profile/' + response.data.id;
+                        })
+                        .catch(function (error) {
+                            //handle error
+                            doctorError.innerText = 'error: ' + error.response.data.message
+                            doctorError.classList.remove('d-none')
+                        });
+			}
+        }
     
     
            

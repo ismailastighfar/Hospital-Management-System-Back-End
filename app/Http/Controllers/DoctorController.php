@@ -52,10 +52,20 @@ class DoctorController extends Controller
 
         $imageName = $request->fname . $request->lname . '.' . $request->picture->extension();
         $request->picture->move(public_path('doc_img'), $imageName);
+        $doc =  new Doctor();
+        $doc->fname = $request->fname;
+        $doc->lname = $request->lname;
+        $doc->age = $request->age;
+        $doc->phone = $request->phone;
+        $doc->proEmail = $request->proEmail;
+        $doc->description= $request->description;
+        $doc->picture = ''.asset('/doc_img/'. $imageName );;
+        $doc->department_id = $request->department_id;
+        $doc->specialty_id = $request->specialty_id;
+        $doc->user_id = $request->user_id;
+        $doc->save();
 
-        Doctor::create($request->all());
-
-        return response([ 'message' => 'doctor created succefully']);
+        return response([ 'message' => 'doctor created succefully' , 'id' => $doc->id]);
     }
 
     public function update(Request $request, $id)

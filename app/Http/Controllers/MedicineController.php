@@ -35,6 +35,7 @@ class MedicineController extends Controller
             'name' => 'required|max:255|unique:medicines,name',
             'description' => 'required',
             'quantity' => 'required',
+            'price' => 'required',
         ]);
 
          Medicine::create($request->all());

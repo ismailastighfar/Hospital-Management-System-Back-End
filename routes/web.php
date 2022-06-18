@@ -7,7 +7,8 @@ use App\http\Controllers\Dashboard\Doctors;
 use App\http\Controllers\Dashboard\Specialties;
 use App\http\Controllers\Dashboard\Appointments;
 use App\http\Controllers\Admin\AdminAuthController;
-
+use App\Http\Controllers\Dashboard\Departments;
+use App\Http\Controllers\Dashboard\Medicines;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,21 @@ Route::middleware('auth')->group( function() {
     Route::get('/specialties/create', [Specialties::class, 'create'] );
     //appointments 
     Route::get('/Appointments', [Appointments::class, 'index'] )->name('appointments');
+
+
+    //departments 
+    Route::get('/departments', [Departments::class, 'index'] )->name('departments');
+    Route::get('/departments/create', [Departments::class, 'create'] )->name('departments.create');
+
+
+    //medicines 
+    Route::get('/medicines', [Medicines::class, 'index'] )->name('medicines');
+    Route::get('/medicines/create', [Medicines::class, 'create'] )->name('medicines.create');
+
+
+
+
+
 
 
 });

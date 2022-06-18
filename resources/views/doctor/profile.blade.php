@@ -34,7 +34,7 @@
 								<div class="pl-0">
 									<div class="main-profile-overview">
 										<div class="main-img-user profile-user d-flex align-items-end ">
-											<img alt="" src="{{ asset('avatars/avatar1.png') }}">
+											<img alt="" src="{{ $doctor->picture }}">
 										</div>
 										<div class="d-flex justify-content-between mg-b-20">
 											<div>
