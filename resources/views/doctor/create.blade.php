@@ -177,7 +177,6 @@
                         })
                         .then(function (response) {
                             //handle success
-                            
                             window.location.href = '/doctors/profile/' + response.data.id;
                         })
                         .catch(function (error) {

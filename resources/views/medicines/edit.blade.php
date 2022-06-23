@@ -31,41 +31,32 @@
 				
 
 				<!-- row -->
-                <form id="formElem"> 
+                <form id="formElem" action='{{ url('/medicines/edit/'. $medicine->id )}}' method="POST"> 
                     @csrf
+					@method('PUT')
 				<div class="row">
 					<div class="col-lg-12 col-md-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="main-content-label mg-b-5">
-								
+								@if (\Session::has('message'))
+								<div class="alert alert-success my-2 col-12 ">
+										{!! \Session::get('message') !!}
 								</div>
-								<p class="mg-b-20"></p>
+								@endif
 								<div class="pd-30 pd-sm-40 bg-gray-200">
 									
-									
-									
-                                    <div class="row row-xs align-items-center mg-b-20">
-										<div class="col-md-4">
-											<label class="form-label mg-b-0">medicine quantity</label>
-										</div>
-										<div class="col-md-8 mg-t-5 mg-md-t-0">
-											<input class="form-control"  type="text" name="quantity">
-										</div>
-									</div>
-
                                     <div class="row row-xs align-items-center mg-b-20">
 										<div class="col-md-4">
 											<label class="form-label mg-b-0">medicine price</label>
 										</div>
 										<div class="col-md-8 mg-t-5 mg-md-t-0">
-											<input class="form-control"  type="text" name="price">
+											<input class="form-control"  type="text" name="price" value="{{$medicine->price}}">
 										</div>
 									</div>
 
 								
 
-									<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5" onclick="Edit({{$medicine->id}})">Save</button>
+									<button class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5" type="submit">Save</button>
 									<button type="reset" class="btn btn-dark pd-x-30 mg-t-5">Cancel</button>
                                     
                                     
@@ -89,26 +80,4 @@
 <!-- Form-layouts js -->
 <script src="{{URL::asset('assets/js/form-layouts.js')}}"></script>
 
- <script>
-			function Edit(idMed){
-                formElem.onsubmit = async (e) => {
-                   e.preventDefault();
-                   let datas = new FormData(formElem);
-				   console.log(datas)
-				axios({
-                        method: "put",
-                        url: window.location.origin + '/api/medicines/' + idMed,
-                        data: datas,
-                        headers: { "Content-Type": "multipart/form-data" },
-                        })
-                        .then(function (response) {
-						    console.log(response);
-                        })
-                        .catch(function (response) {
-                            //handle error
-                            console.log(response);
-                        });
-			}
-        }
-		</script> 
 @endsection

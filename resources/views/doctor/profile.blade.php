@@ -181,7 +181,7 @@
 												@for ( $j = 0; $j < count($appointment['Mon']) ; $j++ )
 													@if( $appointment['Mon'][$j]->time == $i.':00:00')
 													
-														{{ $appointment['Mon'][$j]->time  }}
+														{{ $appointment['Mon'][$j]->patinet->fullname   }}
 													
 													@else
 													
@@ -199,7 +199,7 @@
 												@for ( $j = 0; $j < count($appointment['Tue']) ; $j++ )
 													@if( $appointment['Tue'][$j]->time == $i.':00:00')
 													
-														{{ $appointment['Tue'][$j]->time  }}
+														{{ $appointment['Tue'][$j]->patient->fullname  }}
 													
 													@else
 													
@@ -216,7 +216,7 @@
 												@for ( $j = 0; $j < count($appointment['Wed']) ; $j++ )
 													@if( $appointment['Wed'][$j]->time == $i.':00:00')
 													
-														{{ $appointment['Wed'][$j]->time  }}
+														{{ $appointment['Wed'][$j]->patient->fullname   }}
 													
 													@else
 													
@@ -234,7 +234,7 @@
 												@for ( $j = 0; $j < count($appointment['Thu']) ; $j++ )
 													@if( $appointment['Thu'][$j]->time == $i.':00:00')
 													
-														{{ $appointment['Thu'][$j]->time  }}
+														{{ $appointment['Thu'][$j]->patient->fullname   }}
 													
 													@else
 													
@@ -252,7 +252,7 @@
 												@for ( $j = 0; $j < count($appointment['Fri']) ; $j++ )
 													@if( $appointment['Fri'][$j]->time == $i.':00:00')
 													
-														{{ $appointment['Fri'][$j]->time  }}
+														{{ $appointment['Fri'][$j]->patient->fullname   }}
 													
 													@else
 													

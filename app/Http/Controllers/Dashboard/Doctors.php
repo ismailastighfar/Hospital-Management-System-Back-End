@@ -48,4 +48,41 @@ class Doctors extends Controller
     public function create(){
         return view('doctor.create', ['specialties' => Specialty::all() , 'departments' => Department::all() ]);
     }
+    public function edit($id){
+        return view('doctor.edit', ['doctor' => Doctor::find($id),  'specialties' => Specialty::all() , 'departments' => Department::all() ]);
+    }
+    public function update(Request $request, $id)
+    {
+        
+        $request->validate([
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'age' => 'required|integer',
+            'phone' => 'required',
+            'proEmail' => 'required|email',
+            'description' => 'required|min:10|max:255',
+            'department_id' => 'required',
+            'specialty_id' => 'required',
+        ]);
+
+        $doctor = Doctor::find($id);
+
+        if($doctor) {
+            $doctor->update([
+                'proEmail' => $request->proEmail,
+                'phone' => $request->phone,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'age' => $request->age,
+                'phone' => $request->phone,
+                'proEmail' => $request->proEmail,
+                'description' => $request->description,
+                'department_id' => $request->department_id,
+                'specialty_id' => $request->specialty_id,
+        
+        ]);
+            return redirect()->back()->with( ['message' => 'saved !']);
+        }
+        return response(['error' => 'non doctor founded'] , 404);
+    }
 }

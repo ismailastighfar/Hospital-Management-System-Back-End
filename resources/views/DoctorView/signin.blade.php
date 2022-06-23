@@ -6,13 +6,7 @@
 @section('content')
 		<div class="container-fluid">
 			<div class="row no-gutter">
-				<!-- The image half -->
-				<div class="col-md-6 col-lg-6 col-xl-7  m-0 p-0 d-none d-md-flex ">
-					
-							<img src="{{URL::asset('assets/img/pexels-photo-6340669.jpeg')}}" style="width: 100%; height: 100%; object-fit: cover" alt="logo">
-						
-				</div>
-				<!-- The content half -->
+				
 				<div class="col-md-6 col-lg-6 col-xl-5 bg-white">
 					<div class="login d-flex align-items-center py-2">
 						<!-- Demo content-->
@@ -22,9 +16,9 @@
 									<div class="card-sigin">
 										<div class="card-sigin">
 											<div class="main-signup-header">
-												<h2>Administration system</h2>
+												<h2>Welcome back!</h2>
 												<h5 class="font-weight-semibold mb-4">Please sign in to continue.</h5>
-												<form action="{{ route('login') }}" method='post'>
+												<form action="{{ url('/doctor/login') }}" method='post'>
 													@csrf
 													<div class="form-group">
 														<label>Email</label><input name='email' value="{{ old('email') }}" class="form-control" placeholder="Enter your email" type="email">
@@ -60,6 +54,15 @@
 						</div><!-- End -->
 					</div>
 				</div><!-- End -->
+               <!-- The image half -->
+				<div class="col-md-6 col-lg-6 m-0 p-0 col-xl-7 d-none d-md-flex ">
+					
+						
+							<img src="{{URL::asset('assets/img/pexels-andrea-piacquadio-3756678.jpg')}}" style="width: 100%; height: 100%; object-fit: cover" alt="logo">
+						
+					
+				</div>
+				<!-- The content half --> 
 			</div>
 		</div>
 @endsection

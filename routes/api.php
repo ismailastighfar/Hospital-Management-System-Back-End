@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\PrescriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,8 +65,8 @@ Route::middleware(['auth:sanctum'])->group( function() {
     Route::resource('prescriptions' , PrescriptionController::class);
 
 
-    Route::get('/appointments/accepte/{appointment}' , [AppointmentController::class , 'updateStatusToAccepted'] );
-    Route::get('/appointments/complete/{appointment}' , [AppointmentController::class , 'updateStatusToCompleted'] );
+    Route::get('/appointments/accepte/{id}' , [AppointmentController::class , 'updateStatusToAccepted'] );
+    Route::get('/appointments/complete/{id}' , [AppointmentController::class , 'updateStatusToCompleted'] );
 
     // user routers
 

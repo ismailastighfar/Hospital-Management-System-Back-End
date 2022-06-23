@@ -124,22 +124,25 @@ class AppointmentController extends Controller
 
 
 
-    public function updateStatusToAccepted(Appointment $appointment){
+    public function updateStatusToAccepted($id){
+        
         $user = auth()->user();
-
-        if($user->doctor->id == $appointment->doctor_id ){
+        $appointment = Appointment::find($id);
+        if( $user->role == 0 ){
             $appointment->status = 1;
+            $appointment->save();
             return response(['message' => 'status updated',
                              'appointment' => $appointment
         ]);
-
         }
     }
 
-    public function updateStatusToCompleted(Appointment $appointment){
+    public function updateStatusToCompleted( $id ){
         $user = auth()->user();
+        $appointment = Appointment::find($id);
         if($user->doctor->id == $appointment->doctor_id ){
             $appointment->status = 2;
+            $appointment->save();
             return response(['message' => 'status updated',
                             'appointment' => $appointment
         ]); 
@@ -159,7 +162,7 @@ class AppointmentController extends Controller
         if($appointment->status == 0){
             $user = auth()->user();
 
-            if($user->patient->id == $appointment->patient_id || auth()->user()->role ==  0 ){
+            if( $user->patient->id == $appointment->patient_id || auth()->user()->role ==  0 ){
                 $appointment->update($request->all());
                 Mail::to(auth()->user()->email)->send(new UpdateAppointmentMail());
                 return response(['message' => 'the appiontment updated successfully']);
@@ -184,12 +187,12 @@ class AppointmentController extends Controller
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
         $user = auth()->user();
-
-        if($user->patient->id == $appointment->patient_id){
-            Appointment::destroy($appointment->id);
+        $appointment = Appointment::find($id);
+        if( $user->role == 0 ){
+            $appointment->delete();
             return response(['message' => 'appointment deleted ']);
         }
         else

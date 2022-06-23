@@ -26,6 +26,12 @@ class Medicines extends Controller
     public function edit($id){
         return view('medicines.edit', ['medicine' =>  Medicine::find($id) ]);
     }
+    public function update(Request $request, $id){
+        $med = Medicine::find($id);
+        $med->price = $request->price;
+        $med->save(); 
+        return redirect()->back()->with(['message' => 'saved']);
+    }
 
     
 }

@@ -6,7 +6,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Questions</span>
+							<h4 class="content-title mb-0 my-auto">Dashboard</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ answers</span>
 						</div>
 					</div>
 					<div class="d-flex my-xl-auto right-content">
@@ -33,7 +33,7 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">All Questions</h4>
+									<h4 class="card-title mg-b-0">All Answers</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
 							</div>
@@ -44,18 +44,17 @@
 											<tr>
 												<th>ID</th>
 												<th>auther</th>
-												<th>added</th>
+												<th>answer on</th>
                                                 <th>Content</th>
 											</tr>
 										</thead>
 										<tbody>
-                                            @foreach($questions as $Q)
+                                            @foreach($answers as $Q)
 											<tr>
 												<th scope="row">{{ $Q->id }}</th>
-												<td>{{ $Q->auther->fullname}}</td>
-												<td>{{ $Q->created_at->diffForHumans()}}</td>	
-												<td>{{ $Q->content}}</td>									
-												<td><a class="btn btn-sm btn-danger btn-block" onclick="Delete({{ $Q->id }})"  >Delete</a></td>
+												<td>{{ $Q->auther->fname  }} {{ $Q->Auther->lname  }}</td>
+												<td>{{ $Q->question->auther->fullname }}</td>	
+										        <td>{{ $Q->content }}</td>									
 												
 											</tr>
 											@endforeach
@@ -72,27 +71,5 @@
 			<!-- Container closed -->
 		</div>
 		<!-- main-content closed -->
-		
-
-        <script>
-			function Delete(idMed){
-               
-				axios({
-                        method: "delete",
-                        url: window.location.origin + '/api/questions/' + idMed,
-    
-                        })
-                        .then(function (response) {
-                            window.location.reload();	
-                            console.log(response);
-                        })
-                        .catch(function (response) {
-                            //handle error
-                            console.log(response);
-                        });
-			}
-
-           
-        
-		</script> 
+	 
 @endsection

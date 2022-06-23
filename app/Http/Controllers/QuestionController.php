@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -19,7 +20,7 @@ class QuestionController extends Controller
         $questions = Question::latest()->with('auther','answers')->get();
         $response = [];
          foreach( $questions as $question ){
-             array_push($response, [
+             array_push( $response, [
                 'id' => $question->id,
                 'auther_id' => $question->patient_id,
                 'content' => $question->content,
@@ -38,15 +39,16 @@ class QuestionController extends Controller
 
     public function patientQuestions($id){
 
-        $questions = Question::with('auther')->where('patient_id',$id)->get();
-
+        $questions = Question::where('patient_id',$id)->get();
+        $response = [];
         foreach( $questions as $question ){
             array_push($response, [
                'id' => $question->id,
                'auther_id' => $question->patient_id,
                'content' => $question->content,
                'auther_username' => $question->auther->user->username,
-               'answers' =>  $question->answers
+               'answers' =>  $question->answers,
+               'created_at' => $question->created_at->diffForHumans()
            ]);
         }
        return response(['data' => $response ]);
@@ -81,7 +83,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return $question->with('answers')->get();
+        return response( [ 'question' => $question, 'answers' => Answer::where('question_id' , $question->id )->with('auther')->get() ]);
     }
 
     /**

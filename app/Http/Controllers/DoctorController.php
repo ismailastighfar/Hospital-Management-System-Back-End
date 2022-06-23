@@ -70,10 +70,16 @@ class DoctorController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        
         $request->validate([
-            'phone' => 'integer',
-            'proEmail' => 'email',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'age' => 'required|integer',
+            'phone' => 'required',
+            'proEmail' => 'required|email',
+            'description' => 'required|min:10|max:255',
+            'department_id' => 'required',
+            'specialty_id' => 'required',
         ]);
 
         $doctor = Doctor::find($id);
@@ -82,6 +88,14 @@ class DoctorController extends Controller
             $doctor->update([
                 'proEmail' => $request->proEmail,
                 'phone' => $request->phone,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'age' => $request->age,
+                'phone' => $request->phone,
+                'proEmail' => $request->proEmail,
+                'description' => $request->description,
+                'department_id' => $request->department_id,
+                'specialty_id' => $request->specialty_id,
         
         ]);
             return response(['message' => 'the doctor updated successfully']);

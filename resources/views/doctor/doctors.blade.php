@@ -69,7 +69,7 @@
 												<td>{{ $doctor->phone }}</td>												
 												<td><a class="btn btn-sm btn-info  btn-block" href='{{ url( "/doctors/profile/".$doctor->id ) }}' >View Profile</a></td>
 												<td><a class="btn btn-sm btn-danger btn-block" onclick="Delete({{ $doctor->user->id }})">Delete</a></td>
-												<td><a class="btn btn-outline-success btn-sm btn-block" >Edit</a></td>
+												<td><a class="btn btn-outline-success btn-sm btn-block" href="{{ url('/doctors/edit/'.$doctor->id )}}">Edit</a></td>
 											</tr>
 											@endforeach
 										</tbody>

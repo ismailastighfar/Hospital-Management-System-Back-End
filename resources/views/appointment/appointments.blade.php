@@ -64,7 +64,7 @@
                                             @foreach($appointments as $appointment)
 											<tr>
 												<th @if( $appointment->status == 0) class=' position-relative '  @endif>{{ $appointment->id }} @if( $appointment->status == 0) <span class=" pulse-danger"></span> @endif</th>
-												<th>{{ $appointment->details }}</th>
+												<th	>{{ $appointment->details }}</th>
 												@php
 													$date = date_create($appointment->date) 
 												@endphp
@@ -72,13 +72,15 @@
 												<th>{{ $appointment->time}}</th>
 												<th>{{ $appointment->patient->fullname }} </th>
 												<th>{{ $appointment->doctor->fname }} {{ $appointment->doctor->lname }}</th>
-												<th class="text-secondary">{{ $appointment->created_at->diffForHumans() }} </th>
-												<th class="text-secondary">{{ $appointment->updated_at->diffForHumans() }} </th>
+												<th class="text-secondary">{{ $appointment->created_at->diffForHumans() }} </th> 
+												 <th class="text-secondary">{{ $appointment->updated_at->diffForHumans() }} </th> 
                                                 @if( $appointment->status == 0)
-                                                <th><button class="btn btn-success btn-sm btn-block">Accepte</button></th>
-                                                <th><button class="btn btn-warning btn-sm btn-block">Edit</button></th>
-                                                @endif
-                                                <th></th>
+													<th><button class="btn btn-success btn-sm btn-block" onclick="Accepte('{{ $appointment->id }}')">Accepte</button></th>
+													<th><button class="btn btn-warning btn-sm btn-block" href='/Appointments/edit/{{$appointment->id}}'>Edit</button></th>
+												@else
+													<th><button class="btn btn-danger btn-sm btn-block" onclick="Delete('{{ $appointment->id }}')">Remove</button></th>
+													<th><a class="btn btn-warning btn-sm btn-block" href='/Appointments/edit/{{$appointment->id}}' >Edit</a></th>
+												@endif
 											</tr>
 											@endforeach
 										</tbody>
@@ -98,12 +100,25 @@
 </div>
 @endsection
 @section('js')
-		{{-- <script>
-			function Delete(user){
-				axios.delete( window.location.origin + '/api/users/'+ user)
+		<script>
+			function Accepte(app){
+				console.log(app)
+				axios.get( window.location.origin + '/api/appointments/accepte/'+app)
 				.then( function (res) {
 					window.location.reload();	
+				}).catch((error) => {
+					console.log(error.response.data)
 				})
 			}
-		</script> --}}
+			function Delete(app){
+				console.log(app)
+				axios.delete( window.location.origin + '/api/appointments/'+app)
+				.then( function (res) {
+					// console.log(res.data)
+					window.location.reload();	
+				}).catch((error) => {
+					console.log(error.response.data)
+				})
+			}
+		</script>
 @endsection
