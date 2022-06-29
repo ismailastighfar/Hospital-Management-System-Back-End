@@ -56,7 +56,7 @@ class PatientController extends Controller
 
            $patient =  Patient::create($request->all());
 
-        //    Mail::to(auth()->user()->email)->send(new WelcomeMail($request->fullname));
+           Mail::to(auth()->user()->email)->send(new WelcomeMail($request->fullname));
  
              return response([
                  'message' => 'Patient Created successfully',

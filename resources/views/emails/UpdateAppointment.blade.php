@@ -1,16 +1,12 @@
 @component('mail::message')
-# Introduction
 
-your Appointment has been updated 
+your Appointment has been updated please visite us form more details
 
-date: ???
-time: ??
-doctor: ???
 
 @component('mail::button', ['url' => ''])
 See details
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+<img src="{{asset('/assets/img/logo.png')}}" width="80px" alt="">
 @endcomponent

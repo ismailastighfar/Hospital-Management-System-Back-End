@@ -61,6 +61,7 @@ Route::middleware('auth')->group( function() {
     Route::get('/doctors/create', [Doctors::class, 'create'] )->name('doctor.profile'); 
     Route::get('/doctors/edit/{id}', [Doctors::class, 'edit'] ); 
     Route::put('/doctors/{doctor}', [Doctors::class, 'update'] ); 
+    Route::get('/doctors/avai/{id}', [Doctors::class, 'ChangeAvai'] ); 
     Route::get('/doctors', [Doctors::class, 'index'] )->name('doctor'); 
     //specialties
     Route::get('/specialties', [Specialties::class, 'index'] )->name('specialties');

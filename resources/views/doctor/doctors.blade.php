@@ -55,6 +55,7 @@
 												<th>age</th>
 												<th>Email</th>
 												<th>Phone</th>
+												<th>Availability</th>
 												
 											</tr>
 										</thead>
@@ -66,7 +67,9 @@
 												<td>{{ $doctor->lname }}</td>												
 												<td>{{ $doctor->age }}</td>												
 												<td>{{ $doctor->user->email }}</td>												
-												<td>{{ $doctor->phone }}</td>												
+												<td>{{ $doctor->phone }}</td>	
+												<td>{{ $doctor->availability}}</td>
+												<td><a class="btn btn-sm btn-warning  btn-block" href='{{ url( "/doctors/avai/".$doctor->id ) }}' >Change Availability</a></td>
 												<td><a class="btn btn-sm btn-info  btn-block" href='{{ url( "/doctors/profile/".$doctor->id ) }}' >View Profile</a></td>
 												<td><a class="btn btn-sm btn-danger btn-block" onclick="Delete({{ $doctor->user->id }})">Delete</a></td>
 												<td><a class="btn btn-outline-success btn-sm btn-block" href="{{ url('/doctors/edit/'.$doctor->id )}}">Edit</a></td>

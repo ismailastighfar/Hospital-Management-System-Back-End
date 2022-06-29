@@ -111,15 +111,7 @@
 							</div>
 							
 						</div>
-					<div class="card">
-						<div class="card-body">	
-							<h4 class="tx-15 text-uppercase mb-3 text-info">Reviews</h4>
-							<p class="m-b-5"> </p>
-							<div class="m-t-30">
-								<hr>
-							</div>
-						</div>
-					</div>
+					
 					<div class="card" id="schedule">
 						<div class="card-body">
 							<div class="breadcrumb-header d-flex justify-content-between align-items-end ">

@@ -66,7 +66,7 @@ Route::middleware(['auth:sanctum'])->group( function() {
 
 
     Route::get('/appointments/accepte/{id}' , [AppointmentController::class , 'updateStatusToAccepted'] );
-    Route::get('/appointments/complete/{id}' , [AppointmentController::class , 'updateStatusToCompleted'] );
+    Route::get('/appointments/complete/{id  }' , [AppointmentController::class , 'updateStatusToCompleted'] );
 
     // user routers
 

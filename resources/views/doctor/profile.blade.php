@@ -44,11 +44,7 @@
 										</div>
 										<h4>Total rating</h4>
 										<div class="rating-stars-container d-flex mb-4">
-											@for ($i = 0; $i < 5; $i++)
-												<div class="rating-star">
-													<i class="fa fa-star @if($i <= 2) text-warning @endif"></i>
-												</div>
-											@endfor
+											
 											<span class="text-secondary ml-2">reviews (4874)</span>
 										</div>
 										<h4>Bio</h4>
@@ -132,16 +128,7 @@
 							</div>
 							
 						</div>
-					<div class="card">
-						<div class="card-body">	
-							<h4 class="tx-15 text-uppercase mb-3 text-info">Reviews</h4>
-							<p class="m-b-5"> </p>
-							<div class="m-t-30">
-								<hr>
-							</div>
-							
-						</div>
-					</div>
+					
 					<div class="card" id="schedule">
 						<div class="card-body">
 							<div class="breadcrumb-header d-flex justify-content-between align-items-end ">

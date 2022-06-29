@@ -51,6 +51,18 @@ class Doctors extends Controller
     public function edit($id){
         return view('doctor.edit', ['doctor' => Doctor::find($id),  'specialties' => Specialty::all() , 'departments' => Department::all() ]);
     }
+    public function ChangeAvai($id){
+        $doctor = Doctor::find($id);
+        if( $doctor->availability == 'Available' ) {
+            $doctor->availability = 'Unavailable';
+            $doctor->save();
+            return view('doctor.doctors' ,[ 'doctors' => Doctor::all()]);
+
+        }
+        $doctor->availability = 'Available';
+        $doctor->save();
+        return view('doctor.doctors', [ 'doctors' => Doctor::all()]);
+    }
     public function update(Request $request, $id)
     {
         
